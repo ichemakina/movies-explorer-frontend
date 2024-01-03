@@ -1,0 +1,29 @@
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.nav__links {
+    list-style: none;
+    display: flex;
+    column-gap: 30px;
+    align-items: center;
+    font-family: 'Inter';
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0px;
+    margin: 0;
+}
+
+.nav__button {
+    background: #3DDC84;
+    width: 76px;
+    height: 32px;
+    border-radius: 3px;
+    color: #000000;
+    border: none;
+}
