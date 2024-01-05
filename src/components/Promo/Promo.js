@@ -14,7 +14,9 @@ function Promo() {
 
                 <img className="promo__landing-logo" src={landingLogo} alt="Шар, состоящий из слова web"></img>
             </div>
-            <button className="promo__button">Узнать больше</button>
+            <button className="promo__button">
+                <a className="promo__learn-more-link" href="#about-project">Узнать больше</a>
+            </button>
         </section>
     )
 }

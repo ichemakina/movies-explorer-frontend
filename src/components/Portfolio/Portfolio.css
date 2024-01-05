@@ -43,6 +43,10 @@
     width: 100%;
 }
 
+.portfolio__link:hover {
+    opacity: 0.7;
+}
+
 .portfolio__arrow {
     display: block;
     float: right;
