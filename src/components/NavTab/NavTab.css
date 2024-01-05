@@ -17,6 +17,14 @@
     line-height: 16px;
     letter-spacing: 0px;
     margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 580px) {
+    .nav__links {
+        column-gap: 14px;
+        font-size: 10px;
+    }
 }
 
 .nav__button {
@@ -27,6 +35,14 @@
     color: #000000;
     border: none;
     cursor: pointer;
+    padding: 0;
+}
+
+@media screen and (max-width: 580px) {
+    .nav__button {
+        width: 54px;
+        height: 26px;
+    }
 }
 
 .nav__link {
