@@ -2,7 +2,7 @@
     background-color: #073042;
     color: #FFFFFF;
     padding: 0 70px;
-    min-height: 648px;
+    min-height: 574px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -11,7 +11,7 @@
 @media screen and (max-width: 840px) {
     .promo {
         padding: 0 30px;
-        min-height: 924px;
+        min-height: 850px;
         align-items: center;
     }
 }
@@ -19,7 +19,7 @@
 @media screen and (max-width: 580px) {
     .promo {
         padding: 0 14px;
-        min-height: 710px;
+        min-height: 636px;
     }
 }
 
@@ -92,7 +92,7 @@
     letter-spacing: 0px;
     text-align: left;
     max-width: 310px;
-    opacity: 50%;
+    color: rgba(255, 255, 255, 0.5);
     margin-top: 36px;
     margin-bottom: 0;
 }
