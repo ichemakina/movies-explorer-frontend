@@ -1,7 +1,7 @@
 import "./Navigation.css";
 import account from "../../images/account.svg";
 
-function Navigation() {
+function Navigation({ isMainPage = false }) {
     return (
         <nav className="navigation">
             <input className="navigation__btn" id="menu-toggle" type="checkbox" />
@@ -11,13 +11,13 @@ function Navigation() {
 
             <div className="navigation__links">
                 <ul className="navigation__links_type_films">
-                    <li><a className="navigation__link navigation__link_type_main" href="#">Главная</a></li>
-                    <li><a className="navigation__link" href="#">Фильмы</a></li>
-                    <li><a className="navigation__link" href="#">Сохранённые фильмы</a></li>
+                    <li><a className="navigation__link navigation__link_type_main" href="/">Главная</a></li>
+                    <li><a className="navigation__link" href="/movies">Фильмы</a></li>
+                    <li><a className="navigation__link" href="/saved-movies">Сохранённые фильмы</a></li>
                 </ul>
                 <div className="navigation__links_type_account">
-                    <a className="navigation__link" href="#">Аккаунт</a>
-                    <a className="navigation__link navigation__link_type_account" href="#">
+                    <a className="navigation__link" href="/profile">Аккаунт</a>
+                    <a className={isMainPage ? "navigation__link navigation__link_type_account navigation__link_on-main-page" : "navigation__link navigation__link_type_account"} href="/profile">
                         <img className="navigation__account-img" src={account} alt="Аккаунт"></img>
                     </a>
                 </div>

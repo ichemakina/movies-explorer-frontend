@@ -206,12 +206,16 @@
     width: 26px;
     height: 26px;
     border-radius: 50px;
-    background-color: #0F4157;
+    background-color: #313131;
     position: relative;
 }
 
+.navigation__link_on-main-page {
+    background-color: #0F4157;
+}
+
 @media screen and (max-width: 840px) {
-    .navigation__link_type_account {
+    .navigation__link_on-main-page {
         background-color: #313131;
     }
 }

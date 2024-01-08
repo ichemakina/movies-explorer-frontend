@@ -6,10 +6,10 @@ import Promo from "../Promo/Promo";
 import Techs from "../Techs/Techs";
 import "./Main.css";
 
-function Main() {
+function Main({isMainPage = false}) {
     return (
         <main className="main">
-            <Header />
+            <Header isMainPage={isMainPage}/>
             <Promo />
             <AboutProject />
             <Techs />
