@@ -1,12 +1,11 @@
 import "./SearchForm.css";
-import findIcon from "../../images/find.svg";
 
 function SearchForm() {
     return (
-        <div className="search-form">
+        <section className="search-form">
             <div className="search-form__search-bar">
                 <input className="search-form__input" type="search" placeholder="Фильм"></input>
-                <img className="search-form__find-icon" src={findIcon} alt=""></img>
+                <button className="search-form__find-icon"></button>
             </div>
             <div className="search-form__filter">
                 <label className="search-form__toggler">
@@ -17,7 +16,7 @@ function SearchForm() {
                 </label>
                 <legend className="search-form__toggler-legend">Короткометражки</legend>
             </div>
-        </div>
+        </section>
     )
 }
 
