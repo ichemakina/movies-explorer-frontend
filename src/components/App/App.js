@@ -1,5 +1,6 @@
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -23,6 +24,9 @@ function App() {
 
         <Route path='/movies' element={
           <Movies />
+        } />
+        <Route path='/saved-movies' element={
+          <SavedMovies />
         } />
 
       </Routes>

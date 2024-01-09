@@ -96,6 +96,24 @@ const movies = [
         "duration": "1ч42м",
         "image": film16
     }
+];
+
+const savedMovies = [
+    {
+        "nameRu": "33 слова о дизайне",
+        "duration": "1ч42м",
+        "image": film1
+    },
+    {
+        "nameRu": "33 слова о дизайне",
+        "duration": "1ч42м",
+        "image": film2
+    },
+    {
+        "nameRu": "33 слова о дизайне",
+        "duration": "1ч42м",
+        "image": film3
+    }
 ]
 
-export { movies };
+export { movies, savedMovies };

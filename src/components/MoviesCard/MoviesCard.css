@@ -85,3 +85,18 @@
 .movies-card__save-btn:hover {
     opacity: 0.7;
 }
+
+.movies-card__remove-btn {
+    background-image: url(../../images/remove.svg);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 8px;
+    height: 8px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.movies-card__remove-btn:hover {
+    opacity: 0.7;
+}
