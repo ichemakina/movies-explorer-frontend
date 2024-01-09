@@ -6,12 +6,36 @@
     border-radius: 15px;
 }
 
+@media screen and (max-width: 840px) {
+    .movies-card {
+        height: 257px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .movies-card {
+        height: 235px;
+    }
+}
+
 .movies-card__image {
     display: block;
     width: 100%;
     height: 151px;
     object-fit: cover;
     border-radius: 15px 15px 0 0;
+}
+
+@media screen and (max-width: 840px) {
+    .movies-card__image {
+        height: 190px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .movies-card__image {
+        height: 168px;
+    }
 }
 
 .movies-card__caption {
