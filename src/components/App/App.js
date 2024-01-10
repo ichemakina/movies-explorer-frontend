@@ -1,5 +1,6 @@
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import Profile from '../Profile/Profile';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 import { useEffect, useState } from 'react';
@@ -27,6 +28,10 @@ function App() {
         } />
         <Route path='/saved-movies' element={
           <SavedMovies />
+        } />
+
+        <Route path='/profile' element={
+          <Profile />
         } />
 
       </Routes>
