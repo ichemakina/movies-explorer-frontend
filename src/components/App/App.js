@@ -1,3 +1,4 @@
+import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
@@ -37,6 +38,10 @@ function App() {
 
         <Route path='/signup' element={
           <Register />
+        } />
+
+        <Route path='/signin' element={
+          <Login />
         } />
 
       </Routes>
