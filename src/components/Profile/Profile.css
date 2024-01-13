@@ -143,3 +143,7 @@
         line-height: 15px;
     }
 }
+
+.profile__logout-btn-link {
+    text-decoration: none;
+}

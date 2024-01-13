@@ -22,7 +22,7 @@ function Profile() {
                 </div>
                 <button type="submit" className="profile__edit-btn">Редактировать</button>
             </form>
-            <button type="button" className="profile__logout-btn">Выйти из аккаунта</button>
+            <a className="profile__logout-btn-link" href="/signup"><button type="button" className="profile__logout-btn">Выйти из аккаунта</button></a>
         </section>
     )
 }
