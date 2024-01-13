@@ -8,7 +8,7 @@ function MoviesCardList({ movies, isSavedMoviesPage = false }) {
                 {
                     movies.map((movie) => {
                         return (
-                            <MoviesCard movie={movie} isSavedMoviesPage={isSavedMoviesPage} />
+                            <MoviesCard key={movie._id} movie={movie} isSavedMoviesPage={isSavedMoviesPage} />
                         )
                     })
                 }

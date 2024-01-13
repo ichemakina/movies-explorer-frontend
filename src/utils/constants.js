@@ -17,81 +17,97 @@ import film16 from "../images/film16.jpg";
 
 const movies = [
     {
+        "_id": 1,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film1
     },
     {
+        "_id": 2,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film2
     },
     {
+        "_id": 3,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film3
     },
     {
+        "_id": 4,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film4
     },
     {
+        "_id": 5,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film5
     },
     {
+        "_id": 6,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film6
     },
     {
+        "_id": 7,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film7
     },
     {
+        "_id": 8,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film8
     },
     {
+        "_id": 9,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film9
     },
     {
+        "_id": 10,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film10
     },
     {
+        "_id": 11,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film11
     },
     {
+        "_id": 12,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film12
     },
     {
+        "_id": 13,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film13
     },
     {
+        "_id": 14,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film14
     },
     {
+        "_id": 15,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film15
     },
     {
+        "_id": 16,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film16
@@ -100,16 +116,19 @@ const movies = [
 
 const savedMovies = [
     {
+        "_id": 1,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film1
     },
     {
+        "_id": 2,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film2
     },
     {
+        "_id": 3,
         "nameRu": "33 слова о дизайне",
         "duration": "1ч42м",
         "image": film3
