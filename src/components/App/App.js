@@ -4,6 +4,7 @@ import Movies from '../Movies/Movies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from "react-router-dom";
@@ -42,6 +43,10 @@ function App() {
 
         <Route path='/signin' element={
           <Login />
+        } />
+
+        <Route path='*' element={
+          <NotFoundPage />
         } />
 
       </Routes>
