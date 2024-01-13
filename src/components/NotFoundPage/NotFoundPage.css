@@ -1,0 +1,81 @@
+.not-found-page {
+    width: 100%;
+}
+
+@media screen and (max-width: 840px) {
+    .not-found-page {
+        padding-bottom: 222px;
+    }
+}
+
+.not-found-page__error-code {
+    margin-top: 0px;
+    margin-bottom: 0;
+    font-family: 'Inter';
+    font-size: 140px;
+    font-weight: 400;
+    line-height: 169px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+    padding-top: 246px;
+}
+
+@media screen and (max-width: 840px) {
+    .not-found-page__error-code {
+        padding-top: 408px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .not-found-page__error-code {
+        padding-top: 329px;
+        font-size: 80px;
+        line-height: 97px;
+    }
+}
+
+.not-found-page__error-text {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-family: 'Inter';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+@media screen and (max-width: 580px) {
+    .not-found-page__error-text {
+        margin-top: 10px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+.not-found-page__back {
+    display: block;
+    margin-top: 184px;
+    font-family: 'Inter';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #4285F4;
+    text-decoration: none;
+}
+
+.not-found-page__back:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 580px) {
+    .not-found-page__back {
+        margin-top: 284px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+}

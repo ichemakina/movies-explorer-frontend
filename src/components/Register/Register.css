@@ -171,6 +171,7 @@
     letter-spacing: 0em;
     text-align: center;
     color: #4285F4;
+    text-decoration: none;
 }
 
 .register__login-link:hover {
