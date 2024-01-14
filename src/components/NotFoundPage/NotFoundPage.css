@@ -8,6 +8,12 @@
     }
 }
 
+@media screen and (max-width: 580px) {
+    .not-found-page {
+        padding-bottom: 0;
+    }
+}
+
 .not-found-page__error-code {
     margin-top: 0px;
     margin-bottom: 0;
@@ -57,15 +63,19 @@
 
 .not-found-page__back {
     display: block;
-    margin-top: 184px;
+    margin: 184px auto 0;
     font-family: 'Inter';
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
     letter-spacing: 0em;
     text-align: center;
+    background-color: transparent;
     color: #4285F4;
     text-decoration: none;
+    cursor: pointer;
+    border: none;
+    padding: 0;
 }
 
 .not-found-page__back:hover {
