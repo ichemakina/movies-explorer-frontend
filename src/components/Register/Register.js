@@ -4,7 +4,7 @@ import "./Register.css";
 function Register() {
     return (
         <main className="register">
-            <img className="register__logo" src={logo} alt="С"></img>
+            <a href="/"><img className="register__logo" src={logo} alt="С"></img></a>
             <h1 className="register__title">Добро пожаловать!</h1>
             <form className="register__form">
                 <div className="register__field">

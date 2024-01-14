@@ -1,11 +1,11 @@
 import "./NavTab.css";
 
-function NavTab({ authorized = true }) {
+function NavTab() {
     return (
         <nav>
             <ul className="nav__links">
-                <li className="nav__link">Регистрация</li>
-                <li className="nav__link"><button type="button" className="nav__button">Войти</button></li>
+                <a className="nav__link" href="/signup"><li>Регистрация</li></a>
+                <a className="nav__link" href="/signin"><li className="nav__link"><button type="button" className="nav__button">Войти</button></li></a>
             </ul>
         </nav>
     )
