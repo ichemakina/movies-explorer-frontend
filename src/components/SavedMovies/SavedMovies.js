@@ -5,10 +5,10 @@ import "./SavedMovies.css";
 import { savedMovies } from "../../utils/constants.js";
 import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 
-function SavedMovies() {
+function SavedMovies({ pageUrl }) {
     return (
         <section className="saved-movies">
-            <Header />
+            <Header pageUrl={pageUrl} />
             <SearchForm />
             <MoviesCardList movies={savedMovies} isSavedMoviesPage={true} />
             <Footer />

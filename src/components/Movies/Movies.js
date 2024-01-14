@@ -5,10 +5,10 @@ import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
 import {movies} from "../../utils/constants.js";
 
-function Movies() {
+function Movies({pageUrl}) {
     return (
         <section className="movies">
-            <Header />
+            <Header pageUrl={pageUrl} />
             <SearchForm />
             <MoviesCardList movies={movies} />
             <Footer />

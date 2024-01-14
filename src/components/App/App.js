@@ -11,26 +11,29 @@ import { Route, Routes, useLocation } from "react-router-dom";
 
 function App() {
   const [isMainPage, setIsMainPage] = useState(false);
+  const [pageUrl, setPageUrl] = useState('');
 
   const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === '/')
       setIsMainPage(true);
+    setPageUrl(location.pathname);
   }, [location]);
+
 
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={
-          <Main isMainPage={isMainPage} />
+          <Main isMainPage={isMainPage} pageUrl={pageUrl} />
         } />
 
         <Route path='/movies' element={
-          <Movies />
+          <Movies pageUrl={pageUrl} />
         } />
         <Route path='/saved-movies' element={
-          <SavedMovies />
+          <SavedMovies pageUrl={pageUrl} />
         } />
 
         <Route path='/profile' element={
