@@ -3,9 +3,9 @@ import "./Register.css";
 
 function Register() {
     return (
-        <section className="register">
+        <main className="register">
             <img className="register__logo" src={logo} alt="С"></img>
-            <h2 className="register__title">Добро пожаловать!</h2>
+            <h1 className="register__title">Добро пожаловать!</h1>
             <form className="register__form">
                 <div className="register__field">
                     <label className="register__label">Имя</label>
@@ -25,7 +25,7 @@ function Register() {
                 <p className="register__already-register">Уже зарегистрированы?</p>
                 <a className="register__login-link" href="/signin">Войти</a>
             </div>
-        </section>
+        </main>
     )
 }
 

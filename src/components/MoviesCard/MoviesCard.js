@@ -7,8 +7,8 @@ function MoviesCard({ movie, isSavedMoviesPage = false }) {
             <div className="movies-card__caption">
                 <div className="movies-card__name-and-btn">
                     <h2 className="movies-card__name">{movie.nameRu}</h2>
-                    {!isSavedMoviesPage && <button className="movies-card__save-btn"></button>}
-                    {isSavedMoviesPage && <button className="movies-card__remove-btn"></button>}
+                    {!isSavedMoviesPage && <button type="submit" className="movies-card__save-btn"></button>}
+                    {isSavedMoviesPage && <button type="submit" className="movies-card__remove-btn"></button>}
                 </div>
                 <p className="movies-card__duration">{movie.duration}</p>
             </div>

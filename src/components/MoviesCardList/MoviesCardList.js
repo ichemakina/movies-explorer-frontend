@@ -14,7 +14,7 @@ function MoviesCardList({ movies, isSavedMoviesPage = false }) {
                 }
             </ul>
             {isSavedMoviesPage && <div className="movies-card-list__devider"></div>}
-            {!isSavedMoviesPage && <button className="movies-card-list__more-btn">Ещё</button>}
+            {!isSavedMoviesPage && <button type="button" className="movies-card-list__more-btn">Ещё</button>}
         </section>
     )
 }

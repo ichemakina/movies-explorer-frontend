@@ -6,9 +6,9 @@ function Profile() {
     const currentUserEmail = "test@test.ru";
 
     return (
-        <section className="profile">
+        <main className="profile">
             <Header />
-            <h2 className="profile__name">Привет, {currentUserName}!</h2>
+            <h1 className="profile__name">Привет, {currentUserName}!</h1>
             <form className="profile__edit-form">
                 <div className="profile__field profile__field_type_name">
                     <label className="profile__label">Имя</label>
@@ -23,7 +23,7 @@ function Profile() {
                 <button type="submit" className="profile__edit-btn">Редактировать</button>
             </form>
             <a className="profile__logout-btn-link" href="/signup"><button type="button" className="profile__logout-btn">Выйти из аккаунта</button></a>
-        </section>
+        </main>
     )
 }
 

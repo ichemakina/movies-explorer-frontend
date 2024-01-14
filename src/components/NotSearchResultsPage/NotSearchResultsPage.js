@@ -7,14 +7,14 @@ function NotSearchResultsPage() {
     const navigate = useNavigate();
 
     return (
-        <section className="not-search-results-page">
+        <main className="not-search-results-page">
             <Header />
             <div className="not-search-results-page__title-and-button">
                 <h2 className="not-search-results-page__title">По вашему запросу ничего не найдено</h2>
-                <button className="not-search-results-page__back" href="/" onClick={() => navigate(-1)}>Назад</button>
+                <button type="button" className="not-search-results-page__back" href="/" onClick={() => navigate(-1)}>Назад</button>
             </div>
             <Footer />
-        </section>
+        </main>
     )
 }
 

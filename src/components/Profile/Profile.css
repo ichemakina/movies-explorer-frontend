@@ -8,6 +8,7 @@
 
 .profile__name {
     margin-top: 74px;
+    margin-bottom: 0;
     font-family: 'Inter';
     font-size: 24px;
     font-weight: 500;

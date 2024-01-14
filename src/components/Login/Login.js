@@ -3,9 +3,9 @@ import "./Login.css";
 
 function Login() {
     return (
-        <section className="login">
+        <main className="login">
             <img className="login__logo" src={logo} alt="С"></img>
-            <h2 className="login__title">Рады видеть!</h2>
+            <h1 className="login__title">Рады видеть!</h1>
             <form className="login__form">
 
                 <div className="login__field">
@@ -22,7 +22,7 @@ function Login() {
                 <p className="login__not-register">Ещё не зарегистрированы?</p>
                 <a className="login__register-link" href="/signup">Регистрация</a>
             </div>
-        </section>
+        </main>
     )
 }
 

@@ -7,12 +7,12 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList.js";
 
 function SavedMovies({ pageUrl }) {
     return (
-        <section className="saved-movies">
+        <main className="saved-movies">
             <Header pageUrl={pageUrl} />
             <SearchForm />
             <MoviesCardList movies={savedMovies} isSavedMoviesPage={true} />
             <Footer />
-        </section>
+        </main>
     )
 }
 

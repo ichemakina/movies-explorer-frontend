@@ -7,12 +7,12 @@ import {movies} from "../../utils/constants.js";
 
 function Movies({pageUrl}) {
     return (
-        <section className="movies">
+        <main className="movies">
             <Header pageUrl={pageUrl} />
             <SearchForm />
             <MoviesCardList movies={movies} />
             <Footer />
-        </section>
+        </main>
     )
 }
 
