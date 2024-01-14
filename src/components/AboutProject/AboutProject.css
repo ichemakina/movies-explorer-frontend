@@ -52,6 +52,7 @@
 .about-project__text {
     margin-top: 70px;
     display: flex;
+    justify-content: center;
     column-gap: 40px;
 }
 
