@@ -9,15 +9,15 @@ function Register() {
             <form className="register__form">
                 <div className="register__field">
                     <label className="register__label">Имя</label>
-                    <input className="register__input" type="text" name="name" id="name-field" required minLength="2" maxLength="40" />
+                    <input className="register__input" type="text" name="name" id="name-field" required minLength="2" maxLength="40" placeholder="Имя"/>
                 </div>
                 <div className="register__field">
                     <label className="register__label">E-mail</label>
-                    <input className="register__input" type="email" name="email" id="email-field" required minLength="2" maxLength="40" />
+                    <input className="register__input" type="email" name="email" id="email-field" required minLength="2" maxLength="40" placeholder="Email"/>
                 </div>
                 <div className="register__field">
                     <label className="register__label">Пароль</label>
-                    <input className="register__input" type="password" name="password" id="password-field" required minLength="2" maxLength="40" />
+                    <input className="register__input" type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль"/>
                 </div>
                 <button type="submit" className="register__register-btn">Зарегистрироваться</button>
             </form>

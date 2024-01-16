@@ -10,11 +10,11 @@ function Login() {
 
                 <div className="login__field">
                     <label className="login__label">E-mail</label>
-                    <input className="login__input" type="email" name="email" id="email-field" required minLength="2" maxLength="40" />
+                    <input className="login__input" type="email" name="email" id="email-field" required minLength="2" maxLength="40" placeholder="Email"/>
                 </div>
                 <div className="login__field">
                     <label className="login__label">Пароль</label>
-                    <input className="login__input" type="password" name="password" id="password-field" required minLength="2" maxLength="40" />
+                    <input className="login__input" type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль"/>
                 </div>
                 <button type="submit" className="login__login-btn">Войти</button>
             </form>
