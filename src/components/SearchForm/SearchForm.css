@@ -25,7 +25,7 @@
 
 @media screen and (max-width: 580px) {
     .search-form__search-bar {
-        padding-top: 90px;
+        padding-top: 84px;
         height: 43px;
     }
 }
@@ -96,7 +96,7 @@
 @media screen and (max-width: 580px) {
     .search-form__filter {
         justify-content: center;
-        margin-top: 41px;
+        margin-top: 40px;
         column-gap: 13px;
     }
 }

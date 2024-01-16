@@ -86,7 +86,7 @@
 
 .profile__edit-btn {
     display: block;
-    margin: 220px auto 0;
+    margin: 204px auto 0;
     border: none;
     padding: 0;
     background-color: transparent;
@@ -106,13 +106,13 @@
 
 @media screen and (max-width: 840px) {
     .profile__edit-btn {
-        margin-top: 210px;
+        margin-top: 194px;
     }
 }
 
 @media screen and (max-width: 580px) {
     .profile__edit-btn {
-        margin-top: 379px;
+        margin-top: 363px;
         font-size: 12px;
         line-height: 15px;
     }
@@ -138,10 +138,17 @@
     opacity: 0.7;
 }
 
+@media screen and (max-width: 840px) {
+    .profile__logout-btn {
+        margin-bottom: 269px;
+    }
+}
+
 @media screen and (max-width: 580px) {
     .profile__logout-btn {
         font-size: 12px;
         line-height: 15px;
+        margin-bottom: 40px;
     }
 }
 

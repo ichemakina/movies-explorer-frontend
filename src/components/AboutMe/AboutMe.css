@@ -1,13 +1,13 @@
 .about-me {
     background-color: #202020;
     color: #FFFFFF;
-    padding: 110px 70px 125px;
+    padding: 110px 70px 115px;
     min-height: 844px;
 }
 
 @media screen and (max-width: 840px) {
     .about-me {
-        padding: 90px 50px;
+        padding: 90px 50px 80px;
         min-height: 814px;
     }
 }

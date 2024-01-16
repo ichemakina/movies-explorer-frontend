@@ -121,19 +121,22 @@
     margin-bottom: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(84px, 90px));
+    grid-template-columns: repeat(auto-fit, 90px);
     justify-content: center;
     gap: 10px;
 }
 
 @media screen and (max-width: 840px) {
     .techs__list {
+        grid-template-columns: repeat(auto-fit, 84px);
         margin-top: 83px;
     }
 }
 
 @media screen and (max-width: 580px) {
     .techs__list {
+        padding-left: 25px;
+        padding-right: 25px;
         margin-top: 50px;
     }
 }
