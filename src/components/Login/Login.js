@@ -4,7 +4,7 @@ import "./Login.css";
 function Login() {
     return (
         <main className="login">
-            <a href="/"><img className="login__logo" src={logo} alt="С"></img></a>
+            <a href="/"><img className="login__logo" src={logo} alt="Зеленый кружок с белой буквой С внутри"></img></a>
             <h1 className="login__title">Рады видеть!</h1>
             <form className="login__form">
 

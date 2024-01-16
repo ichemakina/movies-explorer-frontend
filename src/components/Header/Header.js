@@ -6,7 +6,7 @@ import NavTab from "../NavTab/NavTab";
 function Header({ authorized = true, isMainPage = false, pageUrl }) {
     return (
         <header className={isMainPage ? "header header_on-main-page" : "header"}>
-            <a href="/"><img className="nav__logo" src={logo} alt="С"></img></a>
+            <a href="/"><img className="nav__logo" src={logo} alt="Зеленый кружок с белой буквой С внутри"></img></a>
             {authorized
                 ? <Navigation isMainPage={isMainPage} pageUrl={pageUrl} />
                 : <NavTab />}
