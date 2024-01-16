@@ -6,7 +6,6 @@
 .not-search-results-page__title {
     margin-top: 250px;
     margin-bottom: 0;
-    font-family: 'Inter';
     font-size: 30px;
     font-weight: 400;
     line-height: 40px;
@@ -26,7 +25,6 @@
 .not-search-results-page__back {
     display: block;
     margin: 350px auto 0;
-    font-family: 'Inter';
     font-size: 14px;
     font-weight: 400;
     line-height: 17px;
