@@ -10,21 +10,21 @@ function Navigation({ isMainPage = false, pageUrl }) {
     }
 
     return (
-        <nav className="navigation">
-            <button type="button" className="navigation__open-btn" onClick={handleBurgerMenuClick}></button>
-            <div className={`navigation__menu ${isOpenMenu && 'navigation__menu_opened'}`}>
-                <div className="navigation__close-btn-and-links">
-                    <button type="button" className="navigation__close-btn" onClick={handleBurgerMenuClick}></button>
-                    <div className="navigation__links">
-                        <ul className="navigation__links_type_films">
-                            <li><a className={`navigation__link navigation__link_type_main ${pageUrl === "/" && 'navigation__link_active'}`} href="/">Главная</a></li>
-                            <li><a className={`navigation__link ${pageUrl === "/movies" && 'navigation__link_active'}`} href="/movies">Фильмы</a></li>
-                            <li><a className={`navigation__link ${pageUrl === "/saved-movies" && 'navigation__link_active'}`} href="/saved-movies">Сохранённые фильмы</a></li>
+        <nav className="header__navigation">
+            <button type="button" className="header__navigation-menu-open-btn" onClick={handleBurgerMenuClick}></button>
+            <div className={`header__navigation-menu ${isOpenMenu && 'header__navigation-menu_opened'}`}>
+                <div className="header__navigation-menu-close-and-links">
+                    <button type="button" className="header__navigation-menu-close-btn" onClick={handleBurgerMenuClick}></button>
+                    <div className="header__navigation-links">
+                        <ul className="header__navigation-films-links">
+                            <li><a className={`header__navigation-link header__navigation-link_type_main ${pageUrl === "/" && 'header__navigation-link_active'}`} href="/">Главная</a></li>
+                            <li><a className={`header__navigation-link ${pageUrl === "/movies" && 'header__navigation-link_active'}`} href="/movies">Фильмы</a></li>
+                            <li><a className={`header__navigation-link ${pageUrl === "/saved-movies" && 'header__navigation-link_active'}`} href="/saved-movies">Сохранённые фильмы</a></li>
                         </ul>
-                        <div className="navigation__links_type_account">
-                            <a className="navigation__link" href="/profile">Аккаунт</a>
-                            <a className={isMainPage ? "navigation__link navigation__link_type_account navigation__link_on-main-page" : "navigation__link navigation__link_type_account"} href="/profile">
-                                <img className="navigation__account-img" src={account} alt="Аккаунт"></img>
+                        <div className="header__navigation-account-links">
+                            <a className="header__navigation-link" href="/profile">Аккаунт</a>
+                            <a className={isMainPage ? "header__navigation-link header__navigation-link_type_account header__navigation-link_on-main-page" : "header__navigation-link header__navigation-link_type_account"} href="/profile">
+                                <img className="header__navigation-account-img" src={account} alt="Аккаунт"></img>
                             </a>
                         </div>
                     </div>
