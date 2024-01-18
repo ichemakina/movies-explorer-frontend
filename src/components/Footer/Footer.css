@@ -1,0 +1,121 @@
+.footer {
+    background-color: #202020;
+    color: #FFFFFF;
+    padding: 79px 70px 0;
+    min-height: 93px;
+    margin-top: auto;
+}
+
+@media screen and (max-width: 840px) {
+    .footer {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .footer {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.footer__title {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: #8B8B8B;
+    margin: 0;
+}
+
+.footer__title::after {
+    content: '';
+    background-color: #424242;
+    height: 1px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 580px) {
+    .footer__title {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .footer__title::after {
+        margin-top: 21px;
+        margin-bottom: 30px;
+    }
+}
+
+.footer__copyright {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 580px) {
+    .footer__copyright {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.footer__year {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    margin: 0;
+}
+
+@media screen and (max-width: 580px) {
+    .footer__year {
+        font-size: 12px;
+        line-height: 15px;
+        color: #8B8B8B;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+}
+
+.footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    column-gap: 20px;
+}
+
+@media screen and (max-width: 580px) {
+    .footer__links {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 12px;
+    }
+}
+
+.footer__link {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0px;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.footer__link:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 580px) {
+    .footer__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+}
