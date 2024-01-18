@@ -8,14 +8,16 @@ import "./Main.css";
 
 function Main({ isMainPage = false, pageUrl }) {
     return (
-        <main className="main">
+        <div className="main">
             <Header isMainPage={isMainPage} pageUrl={pageUrl} />
-            <Promo />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
+            <main>
+                <Promo />
+                <AboutProject />
+                <Techs />
+                <AboutMe />
+            </main>
             <Footer />
-        </main>
+        </div>
     )
 }
 

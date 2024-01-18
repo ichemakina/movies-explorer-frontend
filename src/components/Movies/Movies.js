@@ -3,16 +3,18 @@ import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import "./Movies.css";
-import {movies} from "../../utils/constants.js";
+import { movies } from "../../utils/constants.js";
 
-function Movies({pageUrl}) {
+function Movies({ pageUrl }) {
     return (
-        <main className="movies">
+        <div className="movies">
             <Header pageUrl={pageUrl} />
-            <SearchForm />
-            <MoviesCardList movies={movies} />
+            <main>
+                <SearchForm />
+                <MoviesCardList movies={movies} />
+            </main>
             <Footer />
-        </main>
+        </div>
     )
 }
 
