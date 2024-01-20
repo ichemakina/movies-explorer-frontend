@@ -8,7 +8,7 @@ function Login({ handleLogin }) {
         handleLogin(email, password);
     }
 
-    const { handleChange, values, errors, handleSubmit } = useForm(handleSubmitForm);
+    const { handleChange, values, errors, handleSubmit, isValid } = useForm(handleSubmitForm);
 
     return (
         <main className="login">
@@ -25,7 +25,7 @@ function Login({ handleLogin }) {
                     <input className={`login__input ${errors.password ? "login__input-error" : ""}`} type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль" onChange={handleChange} />
                     <span className="login__error">{errors.password}</span>
                 </div>
-                <button type="submit" className="login__login-btn">Войти</button>
+                <button type="submit" className={`login__login-btn ${isValid ? "" : "login__login-btn_disabled"}`}>Войти</button>
             </form>
             <div className="login__registration">
                 <p className="login__not-register">Ещё не зарегистрированы?</p>

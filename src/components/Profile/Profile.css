@@ -104,6 +104,12 @@
     opacity: 0.7;
 }
 
+.profile__edit-btn_disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 840px) {
     .profile__edit-btn {
         margin-top: 194px;

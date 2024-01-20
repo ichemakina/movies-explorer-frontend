@@ -3,6 +3,7 @@ import { useState } from "react";
 function useForm(callback) {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
+    const [isValid, setIsValid] = useState(false);
 
     function validate(event, name, value) {
         switch (name) {
@@ -62,6 +63,8 @@ function useForm(callback) {
 
         validate(event, name, value);
 
+        setIsValid(event.target.closest('form').checkValidity());
+
         setValues({
             ...values,
             [name]: value
@@ -76,6 +79,7 @@ function useForm(callback) {
     }
 
     return {
+        isValid,
         values,
         errors,
         handleChange,

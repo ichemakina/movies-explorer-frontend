@@ -117,6 +117,12 @@
     opacity: 0.7;
 }
 
+.login__login-btn_disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 580px) {
     .login__login-btn {
         margin-top: 267px;

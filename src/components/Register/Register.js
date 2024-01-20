@@ -8,7 +8,7 @@ function Register({ handleRegister }) {
         handleRegister(name, email, password);
     }
 
-    const { handleChange, values, errors, handleSubmit } = useForm(handleSubmitForm);
+    const { handleChange, values, errors, handleSubmit, isValid } = useForm(handleSubmitForm);
 
     return (
         <main className="register">
@@ -30,7 +30,7 @@ function Register({ handleRegister }) {
                     <input className={`register__input ${errors.password ? "register__input-error" : ""}`} type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль" onChange={handleChange} />
                     <span className="register__error">{errors.password}</span>
                 </div>
-                <button type="submit" className="register__register-btn">Зарегистрироваться</button>
+                <button type="submit" className={`register__register-btn ${isValid ? "" : "register__register-btn_disabled"}`}>Зарегистрироваться</button>
             </form>
             <div className="register__signing">
                 <p className="register__already-register">Уже зарегистрированы?</p>

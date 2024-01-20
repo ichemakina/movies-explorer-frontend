@@ -27,7 +27,7 @@ function Profile({ handleLogout, handleEditProfile }) {
         });
     }
 
-    const { handleChange, values, errors, handleSubmit } = useForm(handleSubmitForm);
+    const { handleChange, values, errors, handleSubmit, isValid } = useForm(handleSubmitForm);
 
     return (
         <div className="profile">
@@ -51,7 +51,7 @@ function Profile({ handleLogout, handleEditProfile }) {
                         </div>
                         <span className="profile__error">{errors.email}</span>
                     </div>
-                    <button type="submit" className="profile__edit-btn">Редактировать</button>
+                    <button type="submit" className={`profile__edit-btn ${isValid && (values.name !== currentUser.name || values.email !== currentUser.email) ? "" : "profile__edit-btn_disabled"}`}>Редактировать</button>
                 </form>
                 <button type="button" className="profile__logout-btn" onClick={handleLogoutClick}>Выйти из аккаунта</button>
             </main>
