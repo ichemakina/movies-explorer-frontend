@@ -171,3 +171,21 @@
     color: #ff0000;
     margin-top: 2px;
 }
+
+.profile__result {
+    display: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+}
+
+.profile__result_success {
+    display: inline;
+    color: #3DDC84;
+}
+
+.profile__result_not-success {
+    display: inline;
+    color: #ff0000;
+}

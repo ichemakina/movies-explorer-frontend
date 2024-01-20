@@ -200,3 +200,16 @@
 .register__input-error {
     outline: 1px solid red;
 }
+
+.register__result {
+    display: none;
+}
+
+.register__result_visible {
+    display: inline;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    color: #ff0000;
+}

@@ -2,7 +2,7 @@ import logo from "../../images/logo.svg";
 import "./Register.css";
 import useForm from "../../hooks/useForm";
 
-function Register({ handleRegister }) {
+function Register({ handleRegister, resultMessage }) {
     const handleSubmitForm = (e) => {
         const { name, email, password } = values;
         handleRegister(name, email, password);
@@ -30,6 +30,7 @@ function Register({ handleRegister }) {
                     <input className={`register__input ${errors.password ? "register__input-error" : ""}`} type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль" onChange={handleChange} />
                     <span className="register__error">{errors.password}</span>
                 </div>
+                <p className={`register__result ${resultMessage ? "register__result_visible" : ""}`}>{resultMessage.message}</p>
                 <button type="submit" className={`register__register-btn ${isValid ? "" : "register__register-btn_disabled"}`}>Зарегистрироваться</button>
             </form>
             <div className="register__signing">

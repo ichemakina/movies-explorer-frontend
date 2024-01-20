@@ -200,3 +200,16 @@
 .login__input-error {
     outline: 1px solid red;
 }
+
+.login__result {
+    display: none;
+}
+
+.login__result_visible {
+    display: inline;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    color: #ff0000;
+}

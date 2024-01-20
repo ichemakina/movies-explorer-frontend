@@ -2,7 +2,7 @@ import logo from "../../images/logo.svg";
 import "./Login.css";
 import useForm from "../../hooks/useForm";
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, resultMessage }) {
     const handleSubmitForm = (e) => {
         const { email, password } = values;
         handleLogin(email, password);
@@ -25,6 +25,7 @@ function Login({ handleLogin }) {
                     <input className={`login__input ${errors.password ? "login__input-error" : ""}`} type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль" onChange={handleChange} />
                     <span className="login__error">{errors.password}</span>
                 </div>
+                <p className={`login__result ${resultMessage ? "login__result_visible" : ""}`}>{resultMessage.message}</p>
                 <button type="submit" className={`login__login-btn ${isValid ? "" : "login__login-btn_disabled"}`}>Войти</button>
             </form>
             <div className="login__registration">

@@ -5,7 +5,10 @@ function checkResponse(result) {
         return result.json();
     }
 
-    return Promise.reject(`Ошибка: ${result.status}`);
+    return result.json()
+        .then((err) => {
+            throw new Error(err.message)
+        });
 }
 
 export async function register(name, email, password) {

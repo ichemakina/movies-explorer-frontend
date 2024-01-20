@@ -23,6 +23,7 @@ function App() {
   const [isMainPage, setIsMainPage] = useState(false);
   const [pageUrl, setPageUrl] = useState('');
   const [currentUser, setCurrentUser] = useState({});
+  const [queryResultMessage, setQueryResultMessage] = useState({ message: '', isSuccess: false });
 
   useEffect(() => {
     if (location.pathname === '/')
@@ -66,7 +67,7 @@ function App() {
         localStorage.setItem('authorized', true);
       })
       .catch((err) => {
-        console.error(err);
+        setQueryResultMessage({ message: err.message, isSuccess: false });
       });
   }
 
@@ -79,7 +80,9 @@ function App() {
           navigate('/movies', { replace: true });
         }
       })
-      .catch(console.error);
+      .catch((err) => {
+        setQueryResultMessage({ message: err.message, isSuccess: false });
+      });
   }
 
   function handleLogout() {
@@ -93,8 +96,11 @@ function App() {
     api.updateUserInfo(userInfo)
       .then(userData => {
         setCurrentUser(userData);
+        setQueryResultMessage({ message: "Данные успешно обновлены.", isSuccess: true });
       })
-      .catch(console.error);
+      .catch((err) => {
+        setQueryResultMessage({ message: err.message, isSuccess: false });
+      });
   }
 
   return (
@@ -117,16 +123,16 @@ function App() {
           } />
           <Route path='/profile' element={
             <ProtectedRoute authorized={authorized} element={
-              <Profile handleLogout={handleLogout} handleEditProfile={handleEditProfile} />
+              <Profile handleLogout={handleLogout} handleEditProfile={handleEditProfile} resultMessage={queryResultMessage} />
             } />
           } />
 
           <Route path='/signup' element={
-            <Register handleRegister={handleRegister} />
+            <Register handleRegister={handleRegister} resultMessage={queryResultMessage} />
           } />
 
           <Route path='/signin' element={
-            <Login handleLogin={handleLogin} />
+            <Login handleLogin={handleLogin} resultMessage={queryResultMessage} />
           } />
 
           <Route path='*' element={
