@@ -5,15 +5,24 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { register, authorize, checkToken } from '../../utils/Auth';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { api } from '../../utils/Api';
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [authorized, setAuthorized] = useState(() => {
+    return localStorage.getItem('authorized');
+  });
   const [isMainPage, setIsMainPage] = useState(false);
   const [pageUrl, setPageUrl] = useState('');
-
-  const location = useLocation();
+  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     if (location.pathname === '/')
@@ -21,39 +30,110 @@ function App() {
     setPageUrl(location.pathname);
   }, [location]);
 
+  useEffect(() => {
+    function handleTokenCheck() {
+      if (localStorage.getItem('token')) {
+        const token = localStorage.getItem('token');
+        checkToken(token)
+          .then(() => {
+            setAuthorized(true);
+            localStorage.setItem('authorized', true);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    }
+
+    handleTokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (authorized) {
+      api.getUserInfo()
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch(console.error);
+    }
+  }, [authorized]);
+
+  function handleRegister(name, email, password) {
+    register(name, email, password)
+      .then(() => {
+        navigate("/movies", { replace: true });
+        setAuthorized(true);
+        localStorage.setItem('authorized', true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function handleLogin(email, password) {
+    authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          setAuthorized(true);
+          localStorage.setItem('authorized', true);
+          navigate('/movies', { replace: true });
+        }
+      })
+      .catch(console.error);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('authorized');
+    setAuthorized(false);
+    navigate("/", { replace: true });
+  }
+
+  function handleEditProfile(userInfo) {
+    api.updateUserInfo(userInfo)
+      .then(userData => {
+        setCurrentUser(userData);
+      })
+      .catch(console.error);
+  }
 
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={
-          <Main isMainPage={isMainPage} pageUrl={pageUrl} />
-        } />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Routes>
+          <Route path="/" element={
+            <Main isMainPage={isMainPage} pageUrl={pageUrl} authorized={authorized} />
+          } />
 
-        <Route path='/movies' element={
-          <Movies pageUrl={pageUrl} />
-        } />
-        <Route path='/saved-movies' element={
-          <SavedMovies pageUrl={pageUrl} />
-        } />
+          <Route path='/movies' element={
+            <ProtectedRoute authorized={authorized} element={
+              <Movies pageUrl={pageUrl} />
+            } />
+          } />
+          <Route path='/saved-movies' element={
+            <ProtectedRoute authorized={authorized} element={
+              <SavedMovies pageUrl={pageUrl} />
+            } />
+          } />
+          <Route path='/profile' element={
+            <ProtectedRoute authorized={authorized} element={
+              <Profile handleLogout={handleLogout} handleEditProfile={handleEditProfile} />
+            } />
+          } />
 
-        <Route path='/profile' element={
-          <Profile />
-        } />
+          <Route path='/signup' element={
+            <Register handleRegister={handleRegister} />
+          } />
 
-        <Route path='/signup' element={
-          <Register />
-        } />
+          <Route path='/signin' element={
+            <Login handleLogin={handleLogin} />
+          } />
 
-        <Route path='/signin' element={
-          <Login />
-        } />
-
-        <Route path='*' element={
-          <NotFoundPage />
-        } />
-
-      </Routes>
-
+          <Route path='*' element={
+            <NotFoundPage />
+          } />
+        </Routes>
+      </CurrentUserContext.Provider>
     </div>
   );
 }
