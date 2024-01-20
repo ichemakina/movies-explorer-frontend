@@ -1,30 +1,14 @@
 import logo from "../../images/logo.svg";
 import "./Login.css";
-import React, { useState } from 'react';
+import useForm from "../../hooks/useForm";
 
 function Login({ handleLogin }) {
-    const [formValue, setFormValue] = useState({
-        email: '',
-        password: ''
-    });
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-
-        setFormValue({
-            ...formValue,
-            [name]: value
-        });
+    const handleSubmitForm = (e) => {
+        const { email, password } = values;
+        handleLogin(email, password);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!formValue.email || !formValue.password) {
-            return;
-        };
-        handleLogin(formValue.email, formValue.password);
-        setFormValue({ email: '', password: '' });
-    }
+    const { handleChange, values, errors, handleSubmit } = useForm(handleSubmitForm);
 
     return (
         <main className="login">
@@ -33,11 +17,13 @@ function Login({ handleLogin }) {
             <form className="login__form" onSubmit={handleSubmit}>
                 <div className="login__field">
                     <label className="login__label">E-mail</label>
-                    <input className="login__input" type="email" name="email" id="email-field" required minLength="2" maxLength="40" placeholder="Email" onChange={handleChange} />
+                    <input className={`login__input ${errors.email ? "login__input-error" : ""}`} type="email" name="email" id="email-field" required minLength="2" maxLength="40" placeholder="Email" onChange={handleChange} />
+                    <span className="login__error">{errors.email}</span>
                 </div>
                 <div className="login__field">
                     <label className="login__label">Пароль</label>
-                    <input className="login__input" type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль" onChange={handleChange} />
+                    <input className={`login__input ${errors.password ? "login__input-error" : ""}`} type="password" name="password" id="password-field" required minLength="2" maxLength="40" placeholder="Пароль" onChange={handleChange} />
+                    <span className="login__error">{errors.password}</span>
                 </div>
                 <button type="submit" className="login__login-btn">Войти</button>
             </form>

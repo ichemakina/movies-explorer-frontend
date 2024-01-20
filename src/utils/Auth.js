@@ -9,19 +9,23 @@ function checkResponse(result) {
 }
 
 export async function register(name, email, password) {
-    return fetch(`${BASE_URL}/signup`, {
+    const result = await fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+            name: name,
             password: password,
             email: email
         })
-    })
-        .then(checkResponse)
-        .then(res => res);
+    });
+    const res = await checkResponse(result);
+    if (res.token) {
+        localStorage.setItem('token', res.token);
+        return res;
+    }
 };
 
 export async function authorize(email, password) {
