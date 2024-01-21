@@ -2,27 +2,56 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
+import Preloader from "../Preloader/Preloader.js";
 import "./Movies.css";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { moviesApi } from "../../utils/MoviesApi.js";
+import NotSearchResults from "../NotSearchResults/NotSearchResults.js";
 
 function Movies({ pageUrl }) {
-    const [movies, setMovies] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
+    const [errors, setErrors] = useState('');
+    const [preloader, setPreloader] = useState(false);
+    const [notSearchResults, setNotSearchResults] = useState(false);
 
-    useEffect(() => {
+    function handleSearch(searchValue) {
+        if (!searchValue) {
+            setErrors('Нужно ввести ключевое слово');
+            setSearchResults([]);
+            setNotSearchResults(false);
+            return;
+        }
+        setPreloader(true);
+        setSearchResults([]);
+        setNotSearchResults(false)
         moviesApi.getMovies()
-            .then((moviesData) => {
-                setMovies(moviesData);
+            .then(movies => {
+                const results = movies.filter(movie =>
+                    movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+                );
+                setSearchResults(results);
+                if (results.length === 0)
+                    setNotSearchResults(true);
+                else
+                    setNotSearchResults(false);
+                setErrors('');
             })
-            .catch(console.error);
-    }, []);
+            .catch(() => {
+                setErrors('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+            })
+            .finally(() => {
+                setPreloader(false);
+            });
+    };
 
     return (
         <div className="movies">
             <Header pageUrl={pageUrl} />
             <main>
-                <SearchForm />
-                <MoviesCardList movies={movies} />
+                <SearchForm handleSearch={handleSearch} errors={errors} />
+                {preloader && <Preloader />}
+                {notSearchResults && <NotSearchResults />}
+                <MoviesCardList movies={searchResults} />
             </main>
             <Footer />
         </div>
