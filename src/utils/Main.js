@@ -1,4 +1,4 @@
-import { apiConfig } from './apiConfig';
+import { mainApiConfig } from './apiConfig';
 
 class Api {
     constructor(options) {
@@ -11,7 +11,10 @@ class Api {
             return result.json();
         }
 
-        return Promise.reject(`Ошибка: ${result.status}`);
+        return result.json()
+            .then((err) => {
+                throw new Error(err.message)
+            });
     }
 
     _request(url, options) {
@@ -44,4 +47,4 @@ class Api {
     }
 }
 
-export const api = new Api(apiConfig);
+export const api = new Api(mainApiConfig);

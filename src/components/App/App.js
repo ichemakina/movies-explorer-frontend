@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { register, authorize, checkToken } from '../../utils/Auth';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { api } from '../../utils/Api';
+import { api } from '../../utils/Main';
 
 function App() {
   const navigate = useNavigate();

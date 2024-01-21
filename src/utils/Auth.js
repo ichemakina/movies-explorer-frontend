@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
+import { baseUrl } from "./apiConfig";
 
 function checkResponse(result) {
     if (result.ok) {
@@ -12,7 +12,7 @@ function checkResponse(result) {
 }
 
 export async function register(name, email, password) {
-    const result = await fetch(`${BASE_URL}/signup`, {
+    const result = await fetch(`${baseUrl}/signup`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -32,7 +32,7 @@ export async function register(name, email, password) {
 };
 
 export async function authorize(email, password) {
-    const result = await fetch(`${BASE_URL}/signin`, {
+    const result = await fetch(`${baseUrl}/signin`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -51,7 +51,7 @@ export async function authorize(email, password) {
 };
 
 export async function checkToken(token) {
-    const result = await fetch(`${BASE_URL}/users/me`, {
+    const result = await fetch(`${baseUrl}/users/me`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
