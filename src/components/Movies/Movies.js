@@ -64,7 +64,8 @@ function Movies({ pageUrl }) {
         moviesApi.getMovies()
             .then(movies => {
                 const results = movies.filter(movie =>
-                    movie.nameRU.toLowerCase().includes(searchValue.toLowerCase())
+                    movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
+                    movie.nameEN.toLowerCase().includes(searchValue.toLowerCase())
                 );
                 setSearchResults(results);
                 if (movies.length === 0) {
