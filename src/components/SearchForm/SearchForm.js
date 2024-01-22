@@ -1,7 +1,7 @@
 import "./SearchForm.css";
 import { useState } from "react";
 
-function SearchForm({ handleSearch, errors }) {
+function SearchForm({ handleSearch, handleShortFilmsFilter, errors }) {
     const [searchValue, setSearchValue] = useState('');
 
     function handleChange(e) {
@@ -23,7 +23,7 @@ function SearchForm({ handleSearch, errors }) {
             <p className={`search__error ${errors ? "search__error_visible" : ""}`}>{errors}</p>
             <div className="search-form__filter">
                 <label className="search-form__toggler">
-                    <input className="search-form__checkbox" type="checkbox"></input>
+                    <input className="search-form__checkbox" type="checkbox" onClick={handleShortFilmsFilter}></input>
                     <div className="search-form__slider">
                         <div className="search-form__btn"></div>
                     </div>

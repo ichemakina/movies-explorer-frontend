@@ -7,6 +7,7 @@ import "./Movies.css";
 import { useState, useEffect } from 'react';
 import { moviesApi } from "../../utils/MoviesApi.js";
 import NotSearchResults from "../NotSearchResults/NotSearchResults.js";
+import { search, shortFilmsFilter } from "../../utils/filterFunctions.js";
 
 function Movies({ pageUrl }) {
     const [searchResults, setSearchResults] = useState([]);
@@ -17,6 +18,7 @@ function Movies({ pageUrl }) {
     const [width, setWidth] = useState(window.innerWidth);
     const [moviesCount, setMoviesCount] = useState([]);
     const [isDisplayedMoreMoviesBtn, setIsDisplayedMoreMoviesBtn] = useState(true);
+    const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
 
     useEffect(() => {
         function getMoviesCount() {
@@ -39,10 +41,12 @@ function Movies({ pageUrl }) {
     }, [width]);
 
     useEffect(() => {
-        getDisplayedMovies(searchResults);
+        getDisplayedMovies(searchResults, isShortFilmsFilter);
     }, [searchResults, width]);
 
-    function getDisplayedMovies(movies) {
+    function getDisplayedMovies(movies, isFiltered) {
+        if (isFiltered)
+            movies = shortFilmsFilter(movies);
         setDisplayedMovies(movies.slice(0, moviesCount));
         if (movies.length <= displayedMovies.length)
             setIsDisplayedMoreMoviesBtn(false);
@@ -63,17 +67,14 @@ function Movies({ pageUrl }) {
         setIsDisplayedMoreMoviesBtn(true);
         moviesApi.getMovies()
             .then(movies => {
-                const results = movies.filter(movie =>
-                    movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
-                    movie.nameEN.toLowerCase().includes(searchValue.toLowerCase())
-                );
+                let results = search(movies, searchValue);
                 setSearchResults(results);
                 if (movies.length === 0) {
                     setNotSearchResults(true);
                 }
                 else
                     setNotSearchResults(false);
-                getDisplayedMovies(results);
+                getDisplayedMovies(results, isShortFilmsFilter);
                 setErrors('');
             })
             .catch(() => {
@@ -92,11 +93,16 @@ function Movies({ pageUrl }) {
             setIsDisplayedMoreMoviesBtn(false);
     }
 
+    function handleShortFilmsFilter() {
+        getDisplayedMovies(searchResults, !isShortFilmsFilter);
+        setIsShortFilmsFilter(!isShortFilmsFilter);
+    }
+
     return (
         <div className="movies">
             <Header pageUrl={pageUrl} />
             <main>
-                <SearchForm handleSearch={handleSearch} errors={errors} />
+                <SearchForm handleSearch={handleSearch} handleShortFilmsFilter={handleShortFilmsFilter} errors={errors} />
                 {preloader && <Preloader />}
                 {notSearchResults && <NotSearchResults />}
                 {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} />}
