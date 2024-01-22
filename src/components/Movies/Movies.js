@@ -16,6 +16,7 @@ function Movies({ pageUrl }) {
     const [notSearchResults, setNotSearchResults] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
     const [moviesCount, setMoviesCount] = useState([]);
+    const [isDisplayedMoreMoviesBtn, setIsDisplayedMoreMoviesBtn] = useState(true);
 
     useEffect(() => {
         function getMoviesCount() {
@@ -38,12 +39,15 @@ function Movies({ pageUrl }) {
     }, [width]);
 
     useEffect(() => {
-        getDisplayedMovies(searchResults)
+        getDisplayedMovies(searchResults);
     }, [searchResults, width]);
 
     function getDisplayedMovies(movies) {
-        const displayedMovies = movies.slice(0, moviesCount);
-        setDisplayedMovies(displayedMovies);
+        setDisplayedMovies(movies.slice(0, moviesCount));
+        if (movies.length <= displayedMovies.length)
+            setIsDisplayedMoreMoviesBtn(false);
+        else
+            setIsDisplayedMoreMoviesBtn(true);
     }
 
     function handleSearch(searchValue) {
@@ -55,7 +59,8 @@ function Movies({ pageUrl }) {
         }
         setPreloader(true);
         setSearchResults([]);
-        setNotSearchResults(false)
+        setNotSearchResults(false);
+        setIsDisplayedMoreMoviesBtn(true);
         moviesApi.getMovies()
             .then(movies => {
                 const results = movies.filter(movie =>
@@ -78,6 +83,14 @@ function Movies({ pageUrl }) {
             });
     };
 
+    function handleMoreMovies() {
+        let count = width > 840 ? 4 : 2;
+        const moviesCount = displayedMovies.length + count;
+        setDisplayedMovies(searchResults.slice(0, moviesCount));
+        if (searchResults.length <= moviesCount)
+            setIsDisplayedMoreMoviesBtn(false);
+    }
+
     return (
         <div className="movies">
             <Header pageUrl={pageUrl} />
@@ -85,7 +98,7 @@ function Movies({ pageUrl }) {
                 <SearchForm handleSearch={handleSearch} errors={errors} />
                 {preloader && <Preloader />}
                 {notSearchResults && <NotSearchResults />}
-                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} />}
+                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} />}
             </main>
             <Footer />
         </div>

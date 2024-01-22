@@ -1,7 +1,7 @@
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, isSavedMoviesPage = false }) {
+function MoviesCardList({ movies, isSavedMoviesPage = false, handleMoreMovies, isDisplayedMoreMoviesBtn }) {
     return (
         <section className="movies-card-list">
             <ul className="movies-card-list__elements">
@@ -14,7 +14,7 @@ function MoviesCardList({ movies, isSavedMoviesPage = false }) {
                 }
             </ul>
             {isSavedMoviesPage && <div className="movies-card-list__devider"></div>}
-            {!isSavedMoviesPage && <button type="button" className="movies-card-list__more-btn">Ещё</button>}
+            {!isSavedMoviesPage && isDisplayedMoreMoviesBtn && <button type="button" className="movies-card-list__more-btn" onClick={handleMoreMovies}>Ещё</button>}
         </section>
     )
 }
