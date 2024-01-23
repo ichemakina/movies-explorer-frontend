@@ -19,6 +19,23 @@ function Movies({ pageUrl }) {
     const [moviesCount, setMoviesCount] = useState([]);
     const [isDisplayedMoreMoviesBtn, setIsDisplayedMoreMoviesBtn] = useState(true);
     const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
+    const [searchInputValue, setSearchInputValue] = useState('');
+
+    useEffect(() => {
+        const movies = JSON.parse(localStorage.getItem('searchResults'));
+
+        const filter = JSON.parse(localStorage.getItem('isShortFilmsFilter'));
+        setIsShortFilmsFilter(filter);
+
+        const searchValue = localStorage.getItem('searchValue');
+        setSearchInputValue(searchValue);
+
+        if (!movies || movies.length === 0)
+            return;
+
+        setSearchResults(movies);
+        getDisplayedMovies(movies, filter);
+    }, [])
 
     useEffect(() => {
         function getMoviesCount() {
@@ -47,8 +64,9 @@ function Movies({ pageUrl }) {
     function getDisplayedMovies(movies, isFiltered) {
         if (isFiltered)
             movies = shortFilmsFilter(movies);
-        setDisplayedMovies(movies.slice(0, moviesCount));
-        if (movies.length <= displayedMovies.length)
+        const partOfMovies = movies.slice(0, moviesCount);
+        setDisplayedMovies(partOfMovies);
+        if (movies.length <= partOfMovies.length)
             setIsDisplayedMoreMoviesBtn(false);
         else
             setIsDisplayedMoreMoviesBtn(true);
@@ -69,6 +87,8 @@ function Movies({ pageUrl }) {
             .then(movies => {
                 let results = search(movies, searchValue);
                 setSearchResults(results);
+                localStorage.setItem('searchValue', searchValue);
+                localStorage.setItem('searchResults', JSON.stringify(results));
                 if (movies.length === 0) {
                     setNotSearchResults(true);
                 }
@@ -93,16 +113,17 @@ function Movies({ pageUrl }) {
             setIsDisplayedMoreMoviesBtn(false);
     }
 
-    function handleShortFilmsFilter() {
-        getDisplayedMovies(searchResults, !isShortFilmsFilter);
-        setIsShortFilmsFilter(!isShortFilmsFilter);
+    function handleShortFilmsFilter(isChecked) {
+        getDisplayedMovies(searchResults, isChecked);
+        setIsShortFilmsFilter(isChecked);
+        localStorage.setItem('isShortFilmsFilter', JSON.stringify(isChecked));
     }
 
     return (
         <div className="movies">
             <Header pageUrl={pageUrl} />
             <main>
-                <SearchForm handleSearch={handleSearch} handleShortFilmsFilter={handleShortFilmsFilter} errors={errors} />
+                <SearchForm handleSearch={handleSearch} handleShortFilmsFilter={handleShortFilmsFilter} errors={errors} isShortFilmsFilter={isShortFilmsFilter} searchInputValue={searchInputValue} />
                 {preloader && <Preloader />}
                 {notSearchResults && <NotSearchResults />}
                 {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} />}

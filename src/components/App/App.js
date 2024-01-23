@@ -88,6 +88,9 @@ function App() {
   function handleLogout() {
     localStorage.removeItem('token');
     localStorage.removeItem('authorized');
+    localStorage.removeItem('searchResults');
+    localStorage.removeItem('isShortFilmsFilter');
+    localStorage.removeItem('searchValue');
     setAuthorized(false);
     navigate("/", { replace: true });
   }
