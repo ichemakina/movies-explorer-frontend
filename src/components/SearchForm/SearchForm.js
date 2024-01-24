@@ -22,7 +22,7 @@ function SearchForm({ handleSearch, handleShortFilmsFilter, errors, isShortFilms
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleSearch(searchValue);
+        handleSearch(searchValue ? searchValue : searchInputValue);
     }
 
     return (

@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { moviesApi } from "../../utils/MoviesApi.js";
 import NotSearchResults from "../NotSearchResults/NotSearchResults.js";
 import { search, shortFilmsFilter } from "../../utils/filterFunctions.js";
+import { api } from "../../utils/Main.js";
+import { beatfilmMoviesUrl } from "../../utils/apiConfig";
 
 function Movies({ pageUrl }) {
     const [searchResults, setSearchResults] = useState([]);
@@ -20,6 +22,7 @@ function Movies({ pageUrl }) {
     const [isDisplayedMoreMoviesBtn, setIsDisplayedMoreMoviesBtn] = useState(true);
     const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
     const [searchInputValue, setSearchInputValue] = useState('');
+    const [savedMovies, setSavedMovies] = useState([]);
 
     useEffect(() => {
         const movies = JSON.parse(localStorage.getItem('searchResults'));
@@ -60,6 +63,13 @@ function Movies({ pageUrl }) {
     useEffect(() => {
         getDisplayedMovies(searchResults, isShortFilmsFilter);
     }, [searchResults, width]);
+
+    useEffect(() => {
+        api.getMovies()
+            .then((data) => {
+                setSavedMovies(data);
+            });
+    }, [])
 
     function getDisplayedMovies(movies, isFiltered) {
         if (isFiltered)
@@ -119,6 +129,29 @@ function Movies({ pageUrl }) {
         localStorage.setItem('isShortFilmsFilter', JSON.stringify(isChecked));
     }
 
+    function handleSaveMovie(movie) {
+        const imageLink = `${beatfilmMoviesUrl}/${movie.image.url}`;
+        let newMovie = {
+            nameRU: movie.nameRU,
+            nameEN: movie.nameEN,
+            director: movie.director,
+            country: movie.country,
+            year: movie.year,
+            duration: movie.duration,
+            description: movie.description,
+            trailerLink: movie.trailerLink,
+            image: imageLink,
+            thumbnail: imageLink,
+            movieId: movie.id
+        }
+        api.saveMovie(newMovie)
+            .catch();
+        api.getMovies()
+            .then((data) => {
+                setSavedMovies(data);
+            });
+    }
+
     return (
         <div className="movies">
             <Header pageUrl={pageUrl} />
@@ -126,7 +159,7 @@ function Movies({ pageUrl }) {
                 <SearchForm handleSearch={handleSearch} handleShortFilmsFilter={handleShortFilmsFilter} errors={errors} isShortFilmsFilter={isShortFilmsFilter} searchInputValue={searchInputValue} />
                 {preloader && <Preloader />}
                 {notSearchResults && <NotSearchResults />}
-                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} />}
+                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} handleSaveMovie={handleSaveMovie} savedMovies={savedMovies} />}
             </main>
             <Footer />
         </div>
