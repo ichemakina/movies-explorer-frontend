@@ -23,6 +23,7 @@ function Movies({ pageUrl }) {
     const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
     const [searchInputValue, setSearchInputValue] = useState('');
     const [savedMovies, setSavedMovies] = useState([]);
+    const [saveMovieErrors, setSaveMovieErrors] = useState({ message: '', movieId: '' });
 
     useEffect(() => {
         const movies = JSON.parse(localStorage.getItem('searchResults'));
@@ -68,7 +69,8 @@ function Movies({ pageUrl }) {
         api.getMovies()
             .then((data) => {
                 setSavedMovies(data);
-            });
+            })
+            .catch(console.error);
     }, [])
 
     function getDisplayedMovies(movies, isFiltered) {
@@ -145,10 +147,15 @@ function Movies({ pageUrl }) {
             movieId: movie.id
         }
         api.saveMovie(newMovie)
-            .catch();
-        api.getMovies()
-            .then((data) => {
-                setSavedMovies(data);
+            .then(() => {
+                api.getMovies()
+                    .then((data) => {
+                        setSavedMovies(data);
+                    })
+                    .catch(console.error);
+            })
+            .catch(() => {
+                setSaveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movie.id });
             });
     }
 
@@ -159,7 +166,7 @@ function Movies({ pageUrl }) {
                 <SearchForm handleSearch={handleSearch} handleShortFilmsFilter={handleShortFilmsFilter} errors={errors} isShortFilmsFilter={isShortFilmsFilter} searchInputValue={searchInputValue} />
                 {preloader && <Preloader />}
                 {notSearchResults && <NotSearchResults />}
-                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} handleSaveMovie={handleSaveMovie} savedMovies={savedMovies} />}
+                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} errors={saveMovieErrors} handleMoreMovies={handleMoreMovies} isDisplayedMoreMoviesBtn={isDisplayedMoreMoviesBtn} handleSaveMovie={handleSaveMovie} savedMovies={savedMovies} />}
             </main>
             <Footer />
         </div>

@@ -15,6 +15,7 @@ function SavedMovies({ pageUrl }) {
     const [notSearchResults, setNotSearchResults] = useState(false);
     const [displayedMovies, setDisplayedMovies] = useState([]);
     const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
+    const [removeMovieErrors, setRemoveMovieErrors] = useState({ message: '', movieId: '' });
 
     useEffect(() => {
         api.getMovies()
@@ -22,11 +23,19 @@ function SavedMovies({ pageUrl }) {
                 setMovies(moviesData);
                 setDisplayedMovies(moviesData);
             })
+            .catch(() => {
+                setErrors("Произошла ошибка. Подождите немного и попробуйте ещё раз")
+            })
     }, []);
 
     function handleDeleteMovie(movieId) {
-        api.removeMovie(movieId);
-        setDisplayedMovies((state) => state.filter((c) => c._id !== movieId));
+        api.removeMovie(movieId)
+            .then(() => {
+                setDisplayedMovies((state) => state.filter((c) => c._id !== movieId));
+            })
+            .catch(() => {
+                setRemoveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movieId });
+            });
     }
 
     function getDisplayedMovies(movies, isFiltered) {
@@ -70,7 +79,7 @@ function SavedMovies({ pageUrl }) {
             <main>
                 <SearchForm handleSearch={handleSearch} handleShortFilmsFilter={handleShortFilmsFilter} errors={errors} isShortFilmsFilter={isShortFilmsFilter} />
                 {notSearchResults && <NotSearchResults />}
-                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} isSavedMoviesPage={true} handleDeleteMovie={handleDeleteMovie} savedMovies={movies} />}
+                {displayedMovies.length !== 0 && <MoviesCardList movies={displayedMovies} errors={removeMovieErrors} isSavedMoviesPage={true} handleDeleteMovie={handleDeleteMovie} savedMovies={movies} />}
             </main>
             <Footer />
         </div>

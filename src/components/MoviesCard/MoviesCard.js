@@ -3,7 +3,7 @@ import { beatfilmMoviesUrl } from "../../utils/apiConfig";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function MoviesCard({ movie, isSavedMoviesPage = false, handleSaveMovie, handleDeleteMovie, savedMovies }) {
+function MoviesCard({ movie, isSavedMoviesPage = false, handleSaveMovie, handleDeleteMovie, savedMovies, errors }) {
     const [isSaved, setIsSaved] = useState(false);
     const imageLink = isSavedMoviesPage ? movie.image : `${beatfilmMoviesUrl}/${movie.image.url}`;
 
@@ -48,6 +48,7 @@ function MoviesCard({ movie, isSavedMoviesPage = false, handleSaveMovie, handleD
                 </div>
                 <p className="movies-card__duration">{duration}</p>
             </div>
+            {errors && (movie.movieId ?? movie.id) === errors.movieId && <p className="movies-card__error">{errors.message}</p>}
         </li>
     )
 }

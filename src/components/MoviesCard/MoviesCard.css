@@ -102,3 +102,11 @@
 .movies-card__remove-btn:hover {
     opacity: 0.7;
 }
+
+.movies-card__error {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    color: #ff0000;
+}
