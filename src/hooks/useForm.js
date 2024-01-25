@@ -3,7 +3,7 @@ import { useState } from "react";
 function useForm(callback) {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
-    const [isValid, setIsValid] = useState(false);
+    const [isValid, setIsValid] = useState(true);
 
     function validate(event, name, value) {
         switch (name) {
