@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'https://api.ichemakina-movies.nomoredomainsmonster.ru';
 const beatfilmMoviesUrl = 'https://api.nomoreparties.co';
 
 export { baseUrl, beatfilmMoviesUrl };

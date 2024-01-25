@@ -40,9 +40,7 @@ function App() {
             setAuthorized(true);
             localStorage.setItem('authorized', true);
           })
-          .catch((err) => {
-            console.error(err);
-          });
+          .catch(console.error);
       }
     }
 

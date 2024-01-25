@@ -22,7 +22,7 @@ function MoviesCard({ movie, isSavedMoviesPage = false, handleSaveMovie, handleD
     useEffect(() => {
         if (isSavedMoviesPage)
             return;
-        const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
+        const isSaved = savedMovies.length !== 0 && savedMovies.some(savedMovie => savedMovie.movieId === movie.id);
         setIsSaved(isSaved);
     }, [savedMovies, movie.id, isSavedMoviesPage]);
 
