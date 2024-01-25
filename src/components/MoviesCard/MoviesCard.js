@@ -1,6 +1,7 @@
 import "./MoviesCard.css";
 import { beatfilmMoviesUrl } from "../../utils/apiConfig";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function MoviesCard({ movie, isSavedMoviesPage = false, handleSaveMovie, handleDeleteMovie, savedMovies }) {
     const [isSaved, setIsSaved] = useState(false);
@@ -36,7 +37,9 @@ function MoviesCard({ movie, isSavedMoviesPage = false, handleSaveMovie, handleD
 
     return (
         <li className="movies-card">
-            <img className="movies-card__image" src={imageLink} alt={movie.nameRU} />
+            <Link to={movie.trailerLink} target="_blank" rel="noopener noreferrer">
+                <img className="movies-card__image" src={imageLink} alt={movie.nameRU} />
+            </Link>
             <div className="movies-card__caption">
                 <div className="movies-card__name-and-btn">
                     <h2 className="movies-card__name">{movie.nameRU}</h2>
