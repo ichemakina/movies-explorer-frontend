@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { REGEX_EMAIL, REGEX_NAME } from "../utils/constants";
 
 function useForm(callback) {
     const [values, setValues] = useState({});
@@ -8,49 +9,66 @@ function useForm(callback) {
     function validate(event, name, value) {
         switch (name) {
             case 'name':
-                if (!value)
+                if (!value) {
                     setErrors({
                         ...errors,
                         name: event.target.validationMessage
-                    })
-                else if (value.length < 2 || value.length > 40)
+                    });
+                    setIsValid(false);
+                }
+                else if (value.length < 2 || value.length > 40) {
                     setErrors({
                         ...errors,
                         name: event.target.validationMessage
-                    })
-                else if (!new RegExp("^[A-Za-zА-Яа-я -]+$").test(value)) {
+                    });
+                    setIsValid(false);
+                }
+                else if (!REGEX_NAME.test(value)) {
                     setErrors({
                         ...errors,
                         name: "Введены некорректные данные. Поле может содержать только латиницу, кириллицу, пробел или дефис"
-                    })
+                    });
+                    setIsValid(false);
                 }
                 else {
                     setErrors({ ...errors, name: '' });
+                    if (isNotOtherErrors("name"))
+                        setIsValid(true);
                 }
                 break;
             case 'email':
-                if (!value)
+                if (!value) {
                     setErrors({
                         ...errors,
                         email: event.target.validationMessage
-                    })
-                else if (!new RegExp("/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i").test(value))
+                    });
+                    setIsValid(false);
+                }
+                else if (!REGEX_EMAIL.test(value)) {
                     setErrors({
                         ...errors,
-                        email: event.target.validationMessage
-                    })
+                        email: "Введены некорректные данные"
+                    });
+                    setIsValid(false);
+                }
                 else {
-                    setErrors({ ...errors, email: '' })
+                    setErrors({ ...errors, email: '' });
+                    if (isNotOtherErrors("email"))
+                        setIsValid(true);
                 }
                 break;
             case 'password':
-                if (!value)
+                if (!value) {
                     setErrors({
                         ...errors,
                         password: event.target.validationMessage
-                    })
+                    });
+                    setIsValid(false);
+                }
                 else {
-                    setErrors({ ...errors, password: '' })
+                    setErrors({ ...errors, password: '' });
+                    if (isNotOtherErrors("password"))
+                        setIsValid(true);
                 }
                 break;
             default:
@@ -63,17 +81,32 @@ function useForm(callback) {
 
         validate(event, name, value);
 
-        setIsValid(event.target.closest('form').checkValidity());
-
         setValues({
             ...values,
             [name]: value
         });
     }
 
+    const isNotOtherErrors = (value) => {
+        if (value === 'name')
+            return (!errors.email || errors.email === '') && (!errors.password || errors.password === '');
+
+        if (value === 'email')
+            return (!errors.name || errors.name === '') && (!errors.password || errors.password === '');
+
+        if (value === 'password')
+            return (!errors.name || errors.name === '') && (!errors.email || errors.email === '');
+
+        return true;
+    }
+
+    const isNotAnyErrors = () => {
+        return (!errors.name || errors.name === '') && (!errors.email || errors.email === '') && (!errors.password || errors.password === '');
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        if ((!errors.name || errors.name === '') && (!errors.email || errors.email === '') && (!errors.email || errors.password === '')) {
+        if (isNotAnyErrors()) {
             callback();
         }
     }
