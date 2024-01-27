@@ -2,7 +2,7 @@ import logo from "../../images/logo.svg";
 import "./Login.css";
 import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login({ handleLogin, resultMessage }) {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Login({ handleLogin, resultMessage }) {
 
     return (
         <main className="login">
-            <a href="/"><img className="login__logo" src={logo} alt="Зеленый кружок с белой буквой С внутри"></img></a>
+            <Link to="/"><img className="login__logo" src={logo} alt="Зеленый кружок с белой буквой С внутри"></img></Link>
             <h1 className="login__title">Рады видеть!</h1>
             <form className="login__form" onSubmit={handleSubmit}>
                 <div className="login__field">
@@ -39,7 +39,7 @@ function Login({ handleLogin, resultMessage }) {
             </form>
             <div className="login__registration">
                 <p className="login__not-register">Ещё не зарегистрированы?</p>
-                <a className="login__register-link" href="/signup">Регистрация</a>
+                <Link to="/signup" className="login__register-link">Регистрация</Link>
             </div>
         </main>
     )

@@ -2,7 +2,7 @@ import logo from "../../images/logo.svg";
 import "./Register.css";
 import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register({ handleRegister, resultMessage }) {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Register({ handleRegister, resultMessage }) {
 
     return (
         <main className="register">
-            <a href="/"><img className="register__logo" src={logo} alt="Зеленый кружок с белой буквой С внутри"></img></a>
+            <Link to="/"><img className="register__logo" src={logo} alt="Зеленый кружок с белой буквой С внутри"></img></Link>
             <h1 className="register__title">Добро пожаловать!</h1>
             <form className="register__form" onSubmit={handleSubmit} noValidate>
                 <div className="register__field">
@@ -44,7 +44,7 @@ function Register({ handleRegister, resultMessage }) {
             </form>
             <div className="register__signing">
                 <p className="register__already-register">Уже зарегистрированы?</p>
-                <a className="register__login-link" href="/signin">Войти</a>
+                <Link to="/signin" className="register__login-link">Войти</Link>
             </div>
         </main>
     )
