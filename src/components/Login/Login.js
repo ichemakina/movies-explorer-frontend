@@ -1,8 +1,17 @@
 import logo from "../../images/logo.svg";
 import "./Login.css";
 import useForm from "../../hooks/useForm";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login({ handleLogin, resultMessage }) {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.getItem('authorized'))
+            navigate('/', { replace: true });
+    }, []);
+
     const handleSubmitForm = (e) => {
         const { email, password } = values;
         handleLogin(email, password);
