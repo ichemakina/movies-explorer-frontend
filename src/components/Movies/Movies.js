@@ -132,6 +132,13 @@ function Movies({ pageUrl }) {
     }
 
     function handleSaveMovie(movie) {
+        if (savedMovies.some(savedMovie => savedMovie.movieId === movie.id)) {
+            setSaveMovieErrors({ message: "Фильм уже сохранен.", movieId: movie.id });
+            return;
+        }
+        else
+            setSaveMovieErrors({ message: '', movieId: '' });
+
         const imageLink = `${beatfilmMoviesUrl}/${movie.image.url}`;
         let newMovie = {
             nameRU: movie.nameRU,
@@ -147,12 +154,8 @@ function Movies({ pageUrl }) {
             movieId: movie.id
         }
         api.saveMovie(newMovie)
-            .then(() => {
-                api.getMovies()
-                    .then((data) => {
-                        setSavedMovies(data);
-                    })
-                    .catch(console.error);
+            .then((movie) => {
+                setSavedMovies((movies => [...movies, movie]));
             })
             .catch(() => {
                 setSaveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movie.id });
