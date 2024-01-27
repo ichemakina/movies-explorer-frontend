@@ -43,21 +43,17 @@ function App() {
             localStorage.setItem('authorized', true);
           })
           .catch(console.error);
+
+        api.getUserInfo()
+          .then((userData) => {
+            setCurrentUser(userData);
+          })
+          .catch(console.error);
       }
     }
 
     handleTokenCheck();
   }, []);
-
-  useEffect(() => {
-    if (authorized) {
-      api.getUserInfo()
-        .then((userData) => {
-          setCurrentUser(userData);
-        })
-        .catch(console.error);
-    }
-  }, [authorized]);
 
   function handleRegister(name, email, password) {
     setIsLoading(true);

@@ -24,6 +24,7 @@ function Movies({ pageUrl }) {
     const [searchInputValue, setSearchInputValue] = useState('');
     const [savedMovies, setSavedMovies] = useState([]);
     const [saveMovieErrors, setSaveMovieErrors] = useState({ message: '', movieId: '' });
+    const [allMovies, setAllMovies] = useState([]);
 
     useEffect(() => {
         const movies = JSON.parse(localStorage.getItem('searchResults'));
@@ -73,6 +74,29 @@ function Movies({ pageUrl }) {
             .catch(console.error);
     }, [])
 
+    function getAllMovies(searchValue) {
+        moviesApi.getMovies()
+            .then((data) => {
+                setAllMovies(data);
+                searchMovies(data, searchValue);
+            })
+            .catch(() => {
+                setErrors('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
+            })
+            .finally(() => {
+                setPreloader(false);
+            });
+    }
+
+    function searchMovies(movies, searchValue) {
+        let results = search(movies, searchValue);
+        setSearchResults(results);
+        localStorage.setItem('searchValue', searchValue);
+        localStorage.setItem('searchResults', JSON.stringify(results));
+        getDisplayedMovies(results, isShortFilmsFilter);
+        setErrors('');
+    }
+
     function getDisplayedMovies(movies, isFiltered) {
         if (isFiltered)
             movies = shortFilmsFilter(movies);
@@ -97,24 +121,15 @@ function Movies({ pageUrl }) {
             setNotSearchResults(false);
             return;
         }
-        setPreloader(true);
-        setSearchResults([]);
-        setIsDisplayedMoreMoviesBtn(true);
-        moviesApi.getMovies()
-            .then(movies => {
-                let results = search(movies, searchValue);
-                setSearchResults(results);
-                localStorage.setItem('searchValue', searchValue);
-                localStorage.setItem('searchResults', JSON.stringify(results));
-                getDisplayedMovies(results, isShortFilmsFilter);
-                setErrors('');
-            })
-            .catch(() => {
-                setErrors('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
-            })
-            .finally(() => {
-                setPreloader(false);
-            });
+
+        if (allMovies.length === 0) {
+            setPreloader(true);
+            setSearchResults([]);
+            setIsDisplayedMoreMoviesBtn(true);
+            getAllMovies(searchValue);
+        }
+        else
+            searchMovies(allMovies, searchValue);
     };
 
     function handleMoreMovies() {
