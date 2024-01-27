@@ -4,7 +4,7 @@ import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Register({ handleRegister, resultMessage }) {
+function Register({ handleRegister, resultMessage, isLoading }) {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function Register({ handleRegister, resultMessage }) {
                     <span className="register__error">{errors.password}</span>
                 </div>
                 <p className={`register__result ${resultMessage ? "register__result_visible" : ""}`}>{resultMessage.message}</p>
-                <button type="submit" className={`register__register-btn ${isValid ? "" : "register__register-btn_disabled"}`}>Зарегистрироваться</button>
+                <button type="submit" className={`register__register-btn ${isValid && !isLoading ? "" : "register__register-btn_disabled"}`}>Зарегистрироваться</button>
             </form>
             <div className="register__signing">
                 <p className="register__already-register">Уже зарегистрированы?</p>

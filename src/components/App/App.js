@@ -24,11 +24,13 @@ function App() {
   const [pageUrl, setPageUrl] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [queryResultMessage, setQueryResultMessage] = useState({ message: '', isSuccess: false });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (location.pathname === '/')
       setIsMainPage(true);
     setPageUrl(location.pathname);
+    setQueryResultMessage({ message: '', isSuccess: false });
   }, [location]);
 
   useEffect(() => {
@@ -58,6 +60,7 @@ function App() {
   }, [authorized]);
 
   function handleRegister(name, email, password) {
+    setIsLoading(true);
     register(name, email, password)
       .then(() => {
         navigate("/movies", { replace: true });
@@ -66,10 +69,14 @@ function App() {
       })
       .catch((err) => {
         setQueryResultMessage({ message: err.message, isSuccess: false });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleLogin(email, password) {
+    setIsLoading(true);
     authorize(email, password)
       .then((data) => {
         if (data.token) {
@@ -80,6 +87,9 @@ function App() {
       })
       .catch((err) => {
         setQueryResultMessage({ message: err.message, isSuccess: false });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -94,6 +104,7 @@ function App() {
   }
 
   function handleEditProfile(userInfo) {
+    setIsLoading(true);
     api.updateUserInfo(userInfo)
       .then(userData => {
         setCurrentUser(userData);
@@ -101,6 +112,9 @@ function App() {
       })
       .catch((err) => {
         setQueryResultMessage({ message: err.message, isSuccess: false });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -124,16 +138,16 @@ function App() {
           } />
           <Route path='/profile' element={
             <ProtectedRoute authorized={authorized} element={
-              <Profile handleLogout={handleLogout} handleEditProfile={handleEditProfile} resultMessage={queryResultMessage} />
+              <Profile handleLogout={handleLogout} handleEditProfile={handleEditProfile} resultMessage={queryResultMessage} isLoading={isLoading} />
             } />
           } />
 
           <Route path='/signup' element={
-            <Register handleRegister={handleRegister} resultMessage={queryResultMessage} />
+            <Register handleRegister={handleRegister} resultMessage={queryResultMessage} isLoading={isLoading} />
           } />
 
           <Route path='/signin' element={
-            <Login handleLogin={handleLogin} resultMessage={queryResultMessage} />
+            <Login handleLogin={handleLogin} resultMessage={queryResultMessage} isLoading={isLoading} />
           } />
 
           <Route path='*' element={

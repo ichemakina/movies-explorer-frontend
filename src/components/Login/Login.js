@@ -4,7 +4,7 @@ import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login({ handleLogin, resultMessage }) {
+function Login({ handleLogin, resultMessage, isLoading }) {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,7 +35,7 @@ function Login({ handleLogin, resultMessage }) {
                     <span className="login__error">{errors.password}</span>
                 </div>
                 <p className={`login__result ${resultMessage ? "login__result_visible" : ""}`}>{resultMessage.message}</p>
-                <button type="submit" className={`login__login-btn ${isValid ? "" : "login__login-btn_disabled"}`}>Войти</button>
+                <button type="submit" className={`login__login-btn ${isValid && !isLoading ? "" : "login__login-btn_disabled"}`}>Войти</button>
             </form>
             <div className="login__registration">
                 <p className="login__not-register">Ещё не зарегистрированы?</p>
