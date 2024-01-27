@@ -77,7 +77,7 @@ function Movies({ pageUrl }) {
         if (isFiltered)
             movies = shortFilmsFilter(movies);
 
-        if (movies.length === 0 && !preloader)
+        if (searchInputValue !== '' && movies.length === 0 && !preloader)
             setNotSearchResults(true);
         else
             setNotSearchResults(false);
