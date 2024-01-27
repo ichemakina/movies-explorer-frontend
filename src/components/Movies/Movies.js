@@ -76,6 +76,12 @@ function Movies({ pageUrl }) {
     function getDisplayedMovies(movies, isFiltered) {
         if (isFiltered)
             movies = shortFilmsFilter(movies);
+
+        if (movies.length === 0 && !preloader)
+            setNotSearchResults(true);
+        else
+            setNotSearchResults(false);
+
         const partOfMovies = movies.slice(0, moviesCount);
         setDisplayedMovies(partOfMovies);
         if (movies.length <= partOfMovies.length)
@@ -93,7 +99,6 @@ function Movies({ pageUrl }) {
         }
         setPreloader(true);
         setSearchResults([]);
-        setNotSearchResults(false);
         setIsDisplayedMoreMoviesBtn(true);
         moviesApi.getMovies()
             .then(movies => {
@@ -101,11 +106,6 @@ function Movies({ pageUrl }) {
                 setSearchResults(results);
                 localStorage.setItem('searchValue', searchValue);
                 localStorage.setItem('searchResults', JSON.stringify(results));
-                if (movies.length === 0) {
-                    setNotSearchResults(true);
-                }
-                else
-                    setNotSearchResults(false);
                 getDisplayedMovies(results, isShortFilmsFilter);
                 setErrors('');
             })

@@ -8,7 +8,7 @@ function MoviesCardList({ movies, errors, isSavedMoviesPage = false, handleMoreM
                 {
                     movies.map((movie) => {
                         return (
-                            <MoviesCard key={movie.movieId ?? movie.id} movie={movie} isSavedMoviesPage={isSavedMoviesPage} handleSaveMovie={handleSaveMovie} handleDeleteMovie={handleDeleteMovie} savedMovies={savedMovies} errors={errors}/>
+                            <MoviesCard key={movie.movieId ?? movie.id} movie={movie} isSavedMoviesPage={isSavedMoviesPage} handleSaveMovie={handleSaveMovie} handleDeleteMovie={handleDeleteMovie} savedMovies={savedMovies} errors={errors} />
                         )
                     })
                 }

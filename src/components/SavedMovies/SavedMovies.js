@@ -16,6 +16,7 @@ function SavedMovies({ pageUrl }) {
     const [displayedMovies, setDisplayedMovies] = useState([]);
     const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
     const [removeMovieErrors, setRemoveMovieErrors] = useState({ message: '', movieId: '' });
+    const [isSearch, setIsSearch] = useState(false);
 
     useEffect(() => {
         api.getMovies()
@@ -31,6 +32,10 @@ function SavedMovies({ pageUrl }) {
     function handleDeleteMovie(movieId) {
         api.removeMovie(movieId)
             .then(() => {
+                if (movies.length === 1 && movies[0]._id === movieId) {
+                    setNotSearchResults(true);
+                }
+                setMovies((state) => state.filter((c) => c._id !== movieId));
                 setDisplayedMovies((state) => state.filter((c) => c._id !== movieId));
             })
             .catch(() => {
@@ -41,6 +46,13 @@ function SavedMovies({ pageUrl }) {
     function getDisplayedMovies(movies, isFiltered) {
         if (isFiltered)
             movies = shortFilmsFilter(movies);
+
+        if (movies.length === 0) {
+            setNotSearchResults(true);
+        }
+        else
+            setNotSearchResults(false);
+
         setDisplayedMovies(movies);
     }
 
@@ -54,19 +66,15 @@ function SavedMovies({ pageUrl }) {
         setSearchResults([]);
         setNotSearchResults(false);
         let results = search(movies, searchValue);
+        setIsSearch(true);
         setSearchResults(results)
-        if (results.length === 0) {
-            setNotSearchResults(true);
-        }
-        else
-            setNotSearchResults(false);
         getDisplayedMovies(results, isShortFilmsFilter);
         setErrors('');
 
     };
 
     function handleShortFilmsFilter(isChecked) {
-        if (searchResults.length !== 0)
+        if (isSearch)
             getDisplayedMovies(searchResults, isChecked);
         else
             getDisplayedMovies(movies, isChecked);
