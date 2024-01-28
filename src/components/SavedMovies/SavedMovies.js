@@ -37,6 +37,7 @@ function SavedMovies({ pageUrl }) {
                     setNotSearchResults(true);
                 }
                 setMovies((state) => state.filter((c) => c._id !== movieId));
+                setSearchResults((state) => state.filter((c) => c._id !== movieId));
                 setDisplayedMovies((state) => state.filter((c) => c._id !== movieId));
             })
             .catch(() => {
