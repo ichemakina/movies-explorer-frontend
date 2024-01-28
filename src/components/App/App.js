@@ -12,6 +12,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { register, authorize, checkToken } from '../../utils/Auth';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { api } from '../../utils/Main';
+import { beatfilmMoviesUrl } from "../../utils/apiConfig";
 
 function App() {
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [queryResultMessage, setQueryResultMessage] = useState({ message: '', isSuccess: false });
   const [isLoading, setIsLoading] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [saveOrRemoveMovieErrors, setSaveOrRemoveMovieErrors] = useState({ message: '', movieId: '' });
 
   useEffect(() => {
     if (location.pathname === '/')
@@ -49,11 +52,20 @@ function App() {
             setCurrentUser(userData);
           })
           .catch(console.error);
+        getSavedMovies();
       }
     }
 
     handleTokenCheck();
   }, []);
+
+  function getSavedMovies() {
+    api.getMovies()
+      .then((data) => {
+        setSavedMovies(data);
+      })
+      .catch(console.error);
+  }
 
   function handleRegister(name, email, password) {
     setIsLoading(true);
@@ -91,6 +103,7 @@ function App() {
               setCurrentUser(userData);
             })
             .catch(console.error);
+          getSavedMovies();
         }
       })
       .catch((err) => {
@@ -126,6 +139,50 @@ function App() {
       });
   }
 
+  function handleLikeMovie(movie) {
+    if (savedMovies.some(savedMovie => savedMovie.movieId === movie.id)) {
+      const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
+      deleteMovie(savedMovie._id);
+      return;
+    }
+
+    saveMovie(movie);
+  }
+
+  function saveMovie(movie) {
+    const imageLink = `${beatfilmMoviesUrl}/${movie.image.url}`;
+    let newMovie = {
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      director: movie.director,
+      country: movie.country,
+      year: movie.year,
+      duration: movie.duration,
+      description: movie.description,
+      trailerLink: movie.trailerLink,
+      image: imageLink,
+      thumbnail: imageLink,
+      movieId: movie.id
+    }
+    api.saveMovie(newMovie)
+      .then((movie) => {
+        setSavedMovies((movies => [...movies, movie]));
+      })
+      .catch(() => {
+        setSaveOrRemoveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movie.id });
+      });
+  }
+
+  function deleteMovie(movieId) {
+    api.removeMovie(movieId)
+      .then(() => {
+        setSavedMovies((state) => state.filter((c) => c._id !== movieId));
+      })
+      .catch(() => {
+        setSaveOrRemoveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movieId });
+      });
+  }
+
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
@@ -136,12 +193,12 @@ function App() {
 
           <Route path='/movies' element={
             <ProtectedRoute authorized={authorized} element={
-              <Movies pageUrl={pageUrl} />
+              <Movies pageUrl={pageUrl} savedMovies={savedMovies} handleSaveMovie={handleLikeMovie} saveMovieErrors={saveOrRemoveMovieErrors} />
             } />
           } />
           <Route path='/saved-movies' element={
             <ProtectedRoute authorized={authorized} element={
-              <SavedMovies pageUrl={pageUrl} />
+              <SavedMovies pageUrl={pageUrl} savedMovies={savedMovies} deleteMovie={deleteMovie} removeMovieErrors={saveOrRemoveMovieErrors} />
             } />
           } />
           <Route path='/profile' element={

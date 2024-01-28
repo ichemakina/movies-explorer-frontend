@@ -8,10 +8,8 @@ import { useState, useEffect } from 'react';
 import { moviesApi } from "../../utils/MoviesApi.js";
 import NotSearchResults from "../NotSearchResults/NotSearchResults.js";
 import { search, shortFilmsFilter } from "../../utils/filterFunctions.js";
-import { api } from "../../utils/Main.js";
-import { beatfilmMoviesUrl } from "../../utils/apiConfig";
 
-function Movies({ pageUrl }) {
+function Movies({ pageUrl, savedMovies, handleSaveMovie, saveMovieErrors }) {
     const [searchResults, setSearchResults] = useState([]);
     const [displayedMovies, setDisplayedMovies] = useState([]);
     const [errors, setErrors] = useState('');
@@ -22,8 +20,6 @@ function Movies({ pageUrl }) {
     const [isDisplayedMoreMoviesBtn, setIsDisplayedMoreMoviesBtn] = useState(true);
     const [isShortFilmsFilter, setIsShortFilmsFilter] = useState(false);
     const [searchInputValue, setSearchInputValue] = useState('');
-    const [savedMovies, setSavedMovies] = useState([]);
-    const [saveMovieErrors, setSaveMovieErrors] = useState({ message: '', movieId: '' });
     const [allMovies, setAllMovies] = useState([]);
 
     useEffect(() => {
@@ -65,14 +61,6 @@ function Movies({ pageUrl }) {
     useEffect(() => {
         getDisplayedMovies(searchResults, isShortFilmsFilter);
     }, [searchResults, width]);
-
-    useEffect(() => {
-        api.getMovies()
-            .then((data) => {
-                setSavedMovies(data);
-            })
-            .catch(console.error);
-    }, [])
 
     function getAllMovies(searchValue) {
         moviesApi.getMovies()
@@ -144,42 +132,6 @@ function Movies({ pageUrl }) {
         getDisplayedMovies(searchResults, isChecked);
         setIsShortFilmsFilter(isChecked);
         localStorage.setItem('isShortFilmsFilter', JSON.stringify(isChecked));
-    }
-
-    function handleSaveMovie(movie) {
-        if (savedMovies.some(savedMovie => savedMovie.movieId === movie.id)) {
-            const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
-            api.removeMovie(savedMovie._id)
-                .then(() => {
-                    setSavedMovies((state) => state.filter((c) => c._id !== savedMovie._id));
-                })
-                .catch(() => {
-                    setSaveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movie.id });
-                });
-            return;
-        }
-
-        const imageLink = `${beatfilmMoviesUrl}/${movie.image.url}`;
-        let newMovie = {
-            nameRU: movie.nameRU,
-            nameEN: movie.nameEN,
-            director: movie.director,
-            country: movie.country,
-            year: movie.year,
-            duration: movie.duration,
-            description: movie.description,
-            trailerLink: movie.trailerLink,
-            image: imageLink,
-            thumbnail: imageLink,
-            movieId: movie.id
-        }
-        api.saveMovie(newMovie)
-            .then((movie) => {
-                setSavedMovies((movies => [...movies, movie]));
-            })
-            .catch(() => {
-                setSaveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movie.id });
-            });
     }
 
     return (
