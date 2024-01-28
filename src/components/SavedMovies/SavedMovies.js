@@ -32,7 +32,8 @@ function SavedMovies({ pageUrl }) {
     function handleDeleteMovie(movieId) {
         api.removeMovie(movieId)
             .then(() => {
-                if (movies.length === 1 && movies[0]._id === movieId) {
+                if ((movies.length === 1 && movies[0]._id === movieId) ||
+                    (isSearch && searchResults.length === 1 && searchResults[0]._id === movieId)) {
                     setNotSearchResults(true);
                 }
                 setMovies((state) => state.filter((c) => c._id !== movieId));
