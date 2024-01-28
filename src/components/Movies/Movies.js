@@ -148,11 +148,16 @@ function Movies({ pageUrl }) {
 
     function handleSaveMovie(movie) {
         if (savedMovies.some(savedMovie => savedMovie.movieId === movie.id)) {
-            setSaveMovieErrors({ message: "Фильм уже сохранен.", movieId: movie.id });
+            const savedMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id);
+            api.removeMovie(savedMovie._id)
+                .then(() => {
+                    setSavedMovies((state) => state.filter((c) => c._id !== savedMovie._id));
+                })
+                .catch(() => {
+                    setSaveMovieErrors({ message: "Произошла ошибка. Пожалуйста, попробуйте позже.", movieId: movie.id });
+                });
             return;
         }
-        else
-            setSaveMovieErrors({ message: '', movieId: '' });
 
         const imageLink = `${beatfilmMoviesUrl}/${movie.image.url}`;
         let newMovie = {
