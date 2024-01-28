@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { moviesApi } from "../../utils/MoviesApi.js";
 import NotSearchResults from "../NotSearchResults/NotSearchResults.js";
 import { search, shortFilmsFilter } from "../../utils/filterFunctions.js";
+import { COMPUTER_ADDITIONAL_MOVIES, COMPUTER_MOVIES_COUNT, PHONE_ADDITIONAL_MOVIES, PHONE_DISPLAY_WIDTH, PHONE_MOVIES_COUNT, TABLET_DISPLAY_WIDTH, TABLET_MOVIES_COUNT } from "../../utils/constants.js";
 
 function Movies({ pageUrl, savedMovies, handleSaveMovie, saveMovieErrors }) {
     const [searchResults, setSearchResults] = useState([]);
@@ -40,11 +41,11 @@ function Movies({ pageUrl, savedMovies, handleSaveMovie, saveMovieErrors }) {
 
     useEffect(() => {
         function getMoviesCount() {
-            if (width > 840)
-                return 16;
-            if (width > 580)
-                return 8;
-            return 5;
+            if (width > TABLET_DISPLAY_WIDTH)
+                return COMPUTER_MOVIES_COUNT;
+            if (width > PHONE_DISPLAY_WIDTH)
+                return TABLET_MOVIES_COUNT;
+            return PHONE_MOVIES_COUNT;
         }
 
         setMoviesCount(getMoviesCount());
@@ -121,7 +122,10 @@ function Movies({ pageUrl, savedMovies, handleSaveMovie, saveMovieErrors }) {
     };
 
     function handleMoreMovies() {
-        let count = width > 840 ? 4 : 2;
+        let count = width > TABLET_DISPLAY_WIDTH
+            ? COMPUTER_ADDITIONAL_MOVIES
+            : PHONE_ADDITIONAL_MOVIES;
+
         const moviesCount = displayedMovies.length + count;
         setDisplayedMovies(searchResults.slice(0, moviesCount));
         if (searchResults.length <= moviesCount)
