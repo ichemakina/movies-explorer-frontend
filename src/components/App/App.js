@@ -62,6 +62,12 @@ function App() {
         navigate("/movies", { replace: true });
         setAuthorized(true);
         localStorage.setItem('authorized', true);
+
+        api.getUserInfo()
+          .then((userData) => {
+            setCurrentUser(userData);
+          })
+          .catch(console.error);
       })
       .catch((err) => {
         setQueryResultMessage({ message: err.message, isSuccess: false });
@@ -79,6 +85,12 @@ function App() {
           setAuthorized(true);
           localStorage.setItem('authorized', true);
           navigate('/movies', { replace: true });
+
+          api.getUserInfo()
+            .then((userData) => {
+              setCurrentUser(userData);
+            })
+            .catch(console.error);
         }
       })
       .catch((err) => {
