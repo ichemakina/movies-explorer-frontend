@@ -32,7 +32,7 @@ function Profile({ handleLogout, handleEditProfile, resultMessage, isLoading }) 
     return (
         <div className="profile">
             <Header />
-            <main>
+            <main className="progile__main">
                 <h1 className="profile__name">Привет, {currentUser.name}!</h1>
                 <form className="profile__edit-form" onSubmit={handleSubmit}>
                     <div className="profile__field">
