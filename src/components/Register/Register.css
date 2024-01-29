@@ -125,6 +125,12 @@
     opacity: 0.7;
 }
 
+.register__register-btn_disabled {
+    opacity: 0.4;
+    cursor: default;
+    pointer-events: none;
+}
+
 .register__signing {
     margin-top: 16px;
     display: flex;
@@ -181,4 +187,29 @@
         font-size: 12px;
         line-height: 15px;
     }
+}
+
+.register__error {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    color: #ff0000;
+}
+
+.register__input-error {
+    outline: 1px solid red;
+}
+
+.register__result {
+    display: none;
+}
+
+.register__result_visible {
+    display: inline;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.52px;
+    color: #ff0000;
 }
